@@ -1,0 +1,262 @@
+﻿/* Skeleton CSS */
+.carousel-container:empty,
+.badge-row:empty,
+.property-section:empty,
+.price-section:empty {
+    background: linear-gradient(0.25turn, transparent, #fff, transparent), linear-gradient(#eee, #eee), radial-gradient(2.375rem circle at 1.188rem 1.188rem, #eee 50%, transparent 51%), linear-gradient(#eee, #eee);
+    background-repeat: no-repeat;
+    animation: loading 1.5s infinite;
+}
+
+.badge-row:empty,
+.property-section:empty,
+.price-section:empty {
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+
+.badge-row:empty {
+    width: 90%;
+}
+
+.property-section:empty {
+    width: 90%;
+}
+
+.price-section:empty {
+    width: 25%;
+}
+
+/* --------------------------- */
+
+::deep .rz-card {
+    padding: 0;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: var(--colors-white);
+    background-clip: border-box;
+    border: 0.05rem solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
+
+    ::deep .rz-card:not(.responsive) {
+        height: 20rem;
+    }
+
+.card-container-outer {
+    color: var(--colors-text);
+}
+
+    .card-container-outer:hover {
+        text-decoration: none;
+    }
+
+.badge-row {
+    display: flex;
+    flex-direction: row;
+    padding: 0.8rem;
+    flex-wrap: wrap;
+    font-weight: var(--fontWeights-bold) !important;
+}
+
+.location {
+    display: flex;
+    flex-direction: row;
+    color: var(--colors-secondary-500);
+    font-weight: var(--fontWeights-semibold);
+    align-items: center;
+}
+
+::deep .location-icon {
+    font-size: var(--fontSizes-md);
+}
+
+.view-button{
+    display: none;
+}
+
+.price-section {
+    display: flex;
+    align-content: flex-start;
+    margin: 1rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.price-label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+    .price-label > ::deep i {
+        margin-left: 0.5rem;
+    }
+
+.property-section {
+    display: flex;
+    align-content: flex-start;
+    flex-direction: column;
+    padding: 0 0.8rem;
+    width: inherit;
+}
+
+.property-name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+    font-size: var(--fontSizes-xl);
+    font-weight: var(--fontWeights-bold);
+}
+
+.tooltip {
+    background-color: var(--colors-text);
+}
+
+/* Small devices (landscape tablets, less than 768px) */
+@media only screen and (min-width: 0em) {
+    .card-container-outer {
+        min-width: 100%;
+        width: 100%;
+    }
+
+    .card-container-inner {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .rz-card:not(.responsive):not(:empty) > .card-container-inner {
+        display: grid;
+        flex-direction: column;
+        width: 100%;
+        grid-template-rows: 50% 50%;
+    }
+
+    .listing-card-details {
+        height: 50%;
+        width: 100%;
+    }
+
+    .rz-card:not(.responsive):not(:empty) .listing-card-details {
+        width: 15rem;
+    }
+
+    .property-section.responsive {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .carousel-container {
+        width: 100%;
+        height: 11rem;
+    }
+
+    .rz-card:not(.responsive):not(:empty) .carousel-container {
+        width: 15rem;
+        height: 100%;
+    }
+}
+
+/* Mobile above ~445px */
+@media only screen and (min-width: 28em) {
+    .rz-card:not(.responsive):not(:empty) > .card-container-inner {
+        grid-template-rows: 60% 40%;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 62em) {
+    .card-container-outer.responsive {
+        max-width: calc(50% - .5rem);
+        min-width: auto;
+        margin: 0;
+    }
+
+    .card-container-inner.responsive {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .listing-card-details.responsive {
+        height: 10rem;
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-content: space-around;
+        align-items: center;
+    }
+
+    .carousel-container.responsive {
+        width: 100%;
+        height: 11rem;
+    }
+
+    .badge-row.responsive {
+        position: absolute;
+        top: 0;
+    }
+
+    .price-section.responsive {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        margin: 1rem;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 75em) {
+    ::deep .carousel-container {
+        height: 15rem
+    }
+    
+
+    .card-container-outer.responsive {
+        min-width: 100%;
+        height: fit-content;
+    }
+
+    .card-container-inner.responsive {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .listing-card-details.responsive {
+        height: 100%;
+        max-width: calc(100% - 20.625rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: flex-start;
+        align-items: flex-start;
+    }
+
+    ::deep .carousel-container.responsive {
+        width: 20.625rem;
+    }
+
+    .badge-row.responsive {
+        width: 100%;
+    }
+
+    .property-section.responsive {
+        width: 100%;
+        left: 0;
+    }
+
+    .price-section.responsive {
+        width: 100%;
+        right: 0;
+        left: auto;
+        justify-content: flex-end;
+    }
+}

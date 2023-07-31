@@ -1,0 +1,10 @@
+﻿<div class="cioi-stay-date-content">
+    <div class="cioi-calendar-box">
+        <span>@($"{_dateTime:MMM}".ToUpper())</span>
+        <span>@($"{_dateTime:dd}")</span>
+    </div>
+    <div class="cioi-stay-info">
+        <span>@String.Format(IsCheckIn ? ResourcesShared.DayCheckIn : ResourcesShared.DayCheckOut, _dateTime.DayOfWeek)</span>
+        <span>@String.Format(IsCheckIn ? ResourcesShared.CheckInFromTime : ResourcesShared.CheckOutByTime, _dateTime.ToString("HH:mm"))</span>
+    </div>
+</div>

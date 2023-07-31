@@ -1,0 +1,121 @@
+﻿.hero-image ::deep img {
+    width: 100%;
+    object-fit: cover;
+    min-height: 15rem;
+    max-height: 37rem;
+}
+
+h1 {
+    font-size: var(--fontSizes-3xl);
+}
+
+section {
+    display: flex;
+    align-items: center;
+    max-width: 75rem;
+    padding: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .email-and-live-link {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+        .email-and-live-link .get-in-touch {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .email-and-live-link .email {
+            display: flex;
+            gap: 0.3em;
+        }
+
+            .email-and-live-link .email img {
+                height: 1.5rem;
+            }
+
+::deep .chat-button {
+    width: fit-content;
+    height: 4rem;
+    font-size: 150%;
+    border-radius: 10px;
+    min-width: fit-content;
+}
+
+.phone-numbers {
+    padding-top: 0;
+    justify-content: space-between;
+}
+
+    .phone-numbers div {
+        min-width: 10rem;
+        display: flex;
+    }
+
+    .phone-numbers ::deep img {
+        height: 2.8rem;
+        margin-right: 0.5rem;
+    }
+
+    .phone-numbers .phone-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .phone-numbers .phone-text h4,
+        .phone-numbers .phone-text p {
+            margin-bottom: 0;
+            line-height: 1.5rem;
+        }
+
+.contact-us-container {
+    background: var(--colors-gray-100);
+}
+
+.contact-us {
+    align-items: start;
+}
+
+    .contact-us div {
+        margin-top: 3rem;
+        max-width: 24rem;
+    }
+
+@media screen and (max-width: 62em) {
+    ::deep .chat-button {
+        font-size: 110%;
+    }
+}
+
+@media screen and (max-width: 48em) {
+    ::deep .chat-button {
+        font-size: 100%;
+    }
+
+    .contact-us {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 32em) {
+    section:first-of-type .get-in-touch {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        margin-bottom: 1rem;
+    }
+
+    .phone-numbers {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: start;
+    }
+
+    .phone-numbers ::deep img {
+        width: 2rem;
+    }
+}

@@ -1,0 +1,29 @@
+﻿@using Leavetown.Shared.Models
+
+<div class="newsletter-form-container">
+    @if (_isAddSubscriberSuccessful != null)
+    {
+        <div class="@(_isAddSubscriberSuccessful.Value ? "success" : "error") newsletter-message">
+            <RadzenIcon Icon="@(_isAddSubscriberSuccessful.Value ? "check_circle" : "cancel")" />
+            @(_isAddSubscriberSuccessful.Value ? 
+                ResourcesShared.NewsletterSubscribeSuccessful :
+                ResourcesShared.NewsletterSubscribeFailure)
+        </div>
+    }
+    <RadzenTemplateForm TItem="ContactDetailsModel" Data="@_contactDetails" Submit="@OnValidSubmit">
+        <DataAnnotationsValidator />
+        <div>
+            <RadzenTextBox Placeholder="@ResourcesShared.FirstName" @bind-Value="@_contactDetails.FirstName"/>
+            <ValidationMessage For="@(() => _contactDetails.FirstName)" />
+        </div>
+        <div>
+            <RadzenTextBox Placeholder="@ResourcesShared.LastName" @bind-Value="@_contactDetails.LastName"/>
+            <ValidationMessage For="@(() => _contactDetails.LastName)" />
+        </div>
+        <div>
+            <RadzenTextBox Placeholder="@ResourcesShared.Email" @bind-Value="@_contactDetails.Email"/>
+            <ValidationMessage For="@(() => _contactDetails.Email)" />
+        </div>
+        <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Text="@ResourcesShared.Subscribe" />
+    </RadzenTemplateForm>
+</div>

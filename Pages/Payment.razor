@@ -1,0 +1,35 @@
+﻿@page "/payment"
+@page "/{Culture}/payment"
+
+<PageTitle>@ResourcesShared.PaymentPageTitle</PageTitle>
+
+<div class="payment-page">
+    <Header />
+
+    <div class="content">
+        <div>
+            <h1>@_heading</h1>
+            <h4>@_subHeading</h4>
+        </div>
+        <form id="payment-form">
+            <div class="payment-container">
+                <img src="@_imageUrl" />
+                <div id="stripe-container">
+                    <div hidden="@(!_hideSkeleton)" class="skeleton">
+                        <div class="title-skeleton" />
+                        <div class="container-skeleton">
+                            <div class="image-skeleton" />
+                            <div class="field-skeleton">
+                                <div /><div /><div /><div /><div /><div />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="error-message">@_errorMessage</div>
+            <RadzenButton ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.Primary" Text="@_submitButtonText" Visible="@(!_isLoading)"></RadzenButton>
+        </form>
+    </div>
+
+    <Footer />
+</div>

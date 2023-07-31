@@ -1,0 +1,42 @@
+﻿@page "/checkout/confirm"
+@page "/{Culture}/checkout/confirm"
+
+@using Leavetown.Client.Components.Inline;
+@using Leavetown.Client.Components
+@using Leavetown.Client.Components.Filters
+@using Leavetown.Client.Components.Forms
+@using Leavetown.Client.Constants
+
+<PageTitle>@(_listing?.SeoPageTitle ?? "Loading...")</PageTitle>
+<UriParser @ref="@_uriParser" Culture="@Culture" />
+<div class="co-page">
+    <Header />
+    <div class="co-container">
+        <FormSteps ActiveIndex="3" Items="@_checkoutStepItems" />
+        <div class="co-form-content">
+            <RadzenCard class="co-form-card">
+                <div class="co-form-title">
+                    <h1>@ResourcesShared.ConfirmAndPay</h1>
+                    <span>@ResourcesShared.EnterBillingBelowAndConfirm</span>
+                </div>
+                    @if (!RenderState.IsPrerender && _booking != null)
+                    {
+                        <div class="co-form-details">
+                            <span>@ResourcesShared.ReviewYourOrderDetails</span>
+                            <RadzenCard>
+                                <BookingPaymentGrid Booking="@_booking" Listing="@_listing" Quote="@_quote" />
+                            </RadzenCard>
+                        </div>
+                        <PaymentForm 
+                            Title="@ResourcesShared.CardDetails" 
+                            Data="@_booking" 
+                            Quote="@_quote"
+                            Listing="@_listing"
+                            Culture="@Culture" 
+                            ReturnUrl="@($"{Culture}/checkout/info{_booking!.Query}")" />
+                    }
+            </RadzenCard>
+            <CheckoutPanel Booking="@_booking" Listing="@_listing" Quote="@_quote" />
+        </div>
+    </div>
+</div>

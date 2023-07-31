@@ -1,0 +1,18 @@
+version: "3.9"
+name: whitelabel-countryhouseescapes
+services:
+  web:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    build:
+      context: ../../
+      dockerfile: Dockerfile.Server.local
+    volumes:
+      - "C:/dev/leavetown/Leavetown/Leavetown.Client/whitelabel-resources/countryhouseescapes/appsettings.whitelabel.json:/app/wwwroot/appsettings.whitelabel.json"
+      - "C:/dev/leavetown/Leavetown/Leavetown.Client/whitelabel-resources/countryhouseescapes/css:/app/wwwroot/css/whitelabel"
+      - "C:/dev/leavetown/Leavetown/Leavetown.Client/whitelabel-resources/countryhouseescapes/images:/app/wwwroot/images/whitelabel"
+      - "C:/dev/leavetown/Leavetown/Leavetown.Client/whitelabel-resources/countryhouseescapes/js/WhiteLabelFrontChat.js:/app/wwwroot/js/WhiteLabelFrontChat.js"
+      - "C:/dev/leavetown/Leavetown/Leavetown.Client/whitelabel-resources/countryhouseescapes/localization/Leavetown.Client.I18nText.MicroSiteSpecificResources.en.json:/app/wwwroot/_content/i18ntext/Leavetown.Client.I18nText.MicroSiteSpecificResources.en.json"
+      - "C:/dev/leavetown/Leavetown/Leavetown.Client/whitelabel-resources/countryhouseescapes/data:/app/wwwroot/data"
+    ports:
+      - "8088:80"

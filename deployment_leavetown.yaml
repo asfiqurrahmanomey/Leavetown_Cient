@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: leavetown-deployment
+  labels:
+    app: leavetown
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: leavetown
+  template:
+    metadata:
+      labels:
+        app: leavetown
+    spec:
+      containers:
+      - name: leavetown
+        image: 780583404469.dkr.ecr.us-west-2.amazonaws.com/leavetown:latest
+        ports:
+        - containerPort: 80

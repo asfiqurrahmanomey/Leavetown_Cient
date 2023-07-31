@@ -1,0 +1,36 @@
+﻿div {
+    display: flex;
+    align-items: center;
+    background-color: var(--colors-red-200);
+    padding: 1rem;
+}
+    div > li {
+        display: flex;
+        flex-direction: row;
+        color: var(--colors-text);
+    }
+
+    div > ul {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+li {
+    display: flex;
+    align-items: center;
+}
+
+    li > ::deep i {
+        color: var(--colors-red-500);
+        margin-right: 0.5rem;
+    }
+
+    li:not(:first-child) {
+        margin-top: 0.5rem;
+    }
+
+ul {
+    margin-bottom: unset;
+}
+

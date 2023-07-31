@@ -1,0 +1,151 @@
+﻿@page "/accommodation/{ListingId:int}"
+@page "/{Culture}/accommodation/{ListingId:int}"
+@inherits BasePage
+@using Leavetown.Client.Components
+@using Leavetown.Client.Components.Filters
+@using Leavetown.Client.Components.Inline
+
+@if(_listing != null && ResourcesShared.GuestPlural != null && ResourcesShared.GuestSingular != null)
+{
+    <PageTitle>@(_listing.SeoPageTitle)</PageTitle>
+    <HeadContent>
+        <meta name="description" content="@ResourcesMicroSiteSpecific.WebsiteDescription">
+    </HeadContent>
+
+    <div class="ld-page">
+        <Header />
+        <Gallery Images="@_listing.Photos.ToList()" />
+        <div class="ld-container">
+            <div class="ld-content">
+                <div class="title-content">
+                    <span class="location-row"><RadzenIcon Icon="place"/>@($"{_listing.CityName?.ToUpper()}, {_listing.Country?.Code ?? ""}")</span>
+                    <h1>@_listing.SalesChannelHeadline</h1>
+                </div>
+                <div class="info-tags-row">
+                    <span><RadzenIcon Icon="house" />@_listing.PropertyType</span>
+                    <span hidden="@(_listing.NumberOfGuests == 0)"><RadzenIcon Icon="groups" />
+                        @(_listing.NumberOfGuests > 1 ? 
+                            string.Format(ResourcesShared.GuestPlural, _listing.NumberOfGuests).ToLower() : 
+                            ResourcesShared.GuestSingular.ToLower())
+                    </span>
+                    <span hidden="@(_listing.NumberOfBedrooms == 0)"><RadzenIcon Icon="bed" />
+                        @(_listing.NumberOfBedrooms > 1 ? 
+                            string.Format(ResourcesShared.BedroomPlural, _listing.NumberOfBedrooms).ToLower() : 
+                            ResourcesShared.BedroomSingular.ToLower())
+                    </span>
+                    <span hidden="@(_listing.NumberOfBathrooms == 0)"><RadzenIcon Icon="shower" />
+                        @(_listing.NumberOfBathrooms > 1 ? 
+                            string.Format(ResourcesShared.BathroomPlural, _listing.NumberOfBathrooms).ToLower() : 
+                            ResourcesShared.BathroomSingular.ToLower())
+                    </span>
+                    @if(_listing.PetsAllowed) {
+                        <span hidden="@(_listing.NumberOfPets == 0)"><RadzenIcon Icon="pets" />
+                            @(_listing.NumberOfPets > 1 ? 
+                                string.Format(ResourcesShared.PetPlural, _listing.NumberOfPets).ToLower() : 
+                                ResourcesShared.PetSingular.ToLower())
+                        </span>
+                    }
+                </div>
+                <RadzenCard class="ld-card">
+                    <DescriptionPanel Description="@_listing.Description"></DescriptionPanel>
+                </RadzenCard>
+                <RadzenCard class="ld-card">
+                    <section class="features-section">
+                        <h3>@ResourcesShared.Features</h3>
+                        @if (_amenities != null && _amenities.Any())
+                        {
+                            <h4>@ResourcesShared.Amenities</h4>
+                            <section class="amenities-section">
+                                @foreach (var amenity in _amenities)
+                                {
+                                    <span><RadzenIcon Icon="check" />@amenity.Name</span>
+                                }
+                            </section>
+                        }
+                        @if (_suitabilities != null && _suitabilities.Any())
+                        {
+                            <h4>@ResourcesShared.Suitability</h4>
+                            <section class="amenities-section">
+                                @foreach (var suitability in _suitabilities)
+                                {
+                                    <span><RadzenIcon Icon="check" />@suitability.Name</span>
+                                }
+                            </section>
+                        }
+                        <h4>@ResourcesShared.CheckInAndCheckOut</h4>
+                        <section class="checkinout-section">
+                            <span><RadzenIcon Icon="check" />@String.Format(ResourcesShared.ListingCheckInDate, _listing.CheckInTime.ToString(@"hh\:mm"))</span>
+                            <span><RadzenIcon Icon="check" />@String.Format(ResourcesShared.ListingCheckOutDate, _listing.CheckOutTime.ToString(@"hh\:mm"))</span>
+                        </section>
+                    </section>
+                </RadzenCard>
+                <RadzenCard class="ld-card">
+                    <section class="location-section">
+                        <h3>@ResourcesShared.Location</h3>
+                        <Map @ref="@_map" SingleLocation="true" Data="@_mapBoxData" />
+                    </section>
+                </RadzenCard>
+                <RadzenCard class="ld-card">
+                    <section class="availability-section">
+                        <h3>@ResourcesShared.Availability</h3>
+                        <ListingAvailabilityFilter @ref="@_listingAvailabilityFilter" @bind-AvailabilityValue="@_availabilityValue"
+                            Title="@(_listingAvailabilityFilter != null && (!_listingAvailabilityFilter.AvailabilityValue.HasValue || _listingAvailabilityFilter.IsEndDateSelecting) ?
+                                _listingAvailabilityFilter.IsEndDateSelecting ? ResourcesShared.SelectYourCheckOutDate : ResourcesShared.SelectYourCheckInDate : "")"
+                            Listing="@_listing"
+                            Inline="true"
+                            ShowOnlyOneCalendar="@(!_isScreenLarge)"
+                            MaxDateOverride="DateTime.Now.AddYears(2)"
+                            LinkedCalendars="@(_isScreenLarge)"
+                            ClearTitleOnSelect="true"
+                            UseCheckinCheckout="true"
+                            DisablePreviousDates="true"
+                            UpdateUrlOnChange="true"
+                            StartDateSelected="@OnStartDateSelected"
+                            Changed="@OnAvailabilityChanged"/>
+                    </section>
+                </RadzenCard>
+                <RadzenCard class="ld-card">
+                    <h3 class="cancellation-policy-heading">@ResourcesShared.CancellationPolicy</h3>
+                    <CancellationPolicyTimeline Checkin="@_availabilityValue.Start" Checkout="@_availabilityValue.End" PolicyCode="@_listing.CancellationPolicyCode" />
+                </RadzenCard>
+            </div>
+            <div class="ld-inquiry-card @(_bookingWindowDisplayed && !_isScreenLarge ? "display" : "")">
+                <BookingPanel @ref="@_bookingPanel" @bind-AvailabilityValue="@_availabilityValue" 
+                    Id="main" 
+                    Listing="@_listing"
+                    PriceLabel="@_priceLabel"
+                    AvailabilityChanged="@((args) => OnAvailabilityChanged(args))"
+                    BookingPanelVisibilityChanged="@((args) => OnBookingPanelVisibilityChanged(args))" />
+            </div>
+        </div>
+        <Footer />
+    </div>
+    <div class="ld-footer">
+        <div>
+            <PriceInfo IsAverage="true" Label="@_priceLabel"></PriceInfo>
+        </div>
+        <div>
+            <RadzenButton ButtonStyle="ButtonStyle.Primary" Click="@(() => DisplayBookingWindow())" Text="@ResourcesShared.Book" />
+        </div>
+    </div>
+
+    <RadzenMediaQuery Query="(min-width: 1200px)" Change="@(x => _isScreenLarge = x)" />
+}
+else if (!_isLoading)
+{
+    <Custom404 />
+}
+<style>
+    @@media only screen and (max-width: 48em) {
+        /* This hack bumps the chat button above the Book button */
+        /* Had to be done here to avoid Blazor applying CSS Isolation */
+        div#front-chat-container {
+            z-index:5 !important; /* set this to a sane value as we want to hide it in some cases on mobile */
+        }
+        /*
+        iframe#front-chat-iframe {
+            bottom: 3.75rem !important;
+        }
+        */
+    }
+</style>

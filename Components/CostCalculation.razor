@@ -1,0 +1,44 @@
+﻿@if (_quote != null)
+{
+    <div class="cc-cost-section">
+        @AddCostCalculationLine(string.Format(ResourcesShared.NumberOfNights, StayNights), _quote.OriginalRentalTotal)
+        @if (_quote.PromotionDiscount != 0M)
+        {
+            <div class="cc-promotion-section">
+                @AddCostCalculationLine(ResourcesShared.Promotion, _quote.PromotionDiscount, isSubtracting: true)
+            </div>
+        }
+        @AddCostCalculationLine(ResourcesShared.PetFees, _quote.PetFees)
+        @AddCostCalculationLine(ResourcesShared.FeeService, _quote.ServiceFee)
+        @AddCostCalculationLine(ResourcesShared.FeeCleaning, _quote.CleaningFee)
+        @AddCostCalculationLine(ResourcesShared.FeeAutohost, _quote.AutohostFee)
+        @AddCostCalculationLine(ResourcesShared.FeeExtraAdult, _quote.ExtraAdultFees)
+        @AddCostCalculationLine(string.Format(ResourcesShared.TaxesAndFees, _quote.TaxPercentage), _quote.TaxesAndFees)
+    </div>
+    <div class="cc-total-cost-section">
+        @if(_quote.PromotionDiscount != 0M && _quote.PrePromotionalTotal != 0M)
+        {
+            <div class="cc-total-before-discounts">
+                @AddCostCalculationLine(null, _quote.PrePromotionalTotal)
+            </div>
+        }
+        <div class="cc-total">@AddCostCalculationLine(ResourcesShared.Total, _quote.Total)</div>
+        @AddCostCalculationLine(ResourcesShared.AmountDueToday, _quote.PaymentAmount)
+    </div>
+}
+
+@code {
+    private RenderFragment AddCostCalculationLine(string? whiteLabelTitle, decimal amount, bool isSubtracting = false) => __builder =>
+    {
+        if(amount != 0 && _quote != null)
+        {
+            <div>
+                @if (whiteLabelTitle != null)
+                {
+                    <span>@whiteLabelTitle</span>
+                }
+                <span>@($"{(isSubtracting ? "-" : "")}{_currency?.Symbol}{amount:##,#.00}")</span>
+            </div>
+        }
+    };
+}

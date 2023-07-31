@@ -1,0 +1,75 @@
+﻿@page "/contact"
+@page "/{Culture}/contact"
+@using Leavetown.Client.Components.Forms
+@inherits BasePage
+
+<PageTitle>@ResourcesShared.ContactUs</PageTitle>
+<HeadContent><meta name="description" content="@ResourcesMicroSiteSpecific.WebsiteDescription"></HeadContent>
+
+<Header />
+<div class="hero-image">
+    <RadzenImage Path="images/whitelabel/hero-contactUs.jpg" alt="Contact us if you need assistance" />
+</div>
+
+<section class="email-and-live-link">
+    <Switch>
+        <Route Template="/{Culture}/contact">
+            <h1>@ResourcesShared.ContactGuestServicesFormHeading</h1>
+        </Route>
+        <Route Template="/{Culture}/contact-business">
+            <h1>@ResourcesShared.ContactBusinessServicesFormHeading</h1>
+        </Route>
+    </Switch>
+    <div class="get-in-touch">
+        <p>@ResourcesMicroSiteSpecific.GetInTouch</p>
+        <RadzenButton Text="@ResourcesShared.ChatWithALiveAgent" Image="images/front.svg" ButtonStyle="ButtonStyle.Primary" Click="ShowChat" title="@ResourcesShared.ChatWithALiveAgent" class="chat-button" />
+    </div>
+    <div class="email">
+        <img src="images/whitelabel/mail_icon.svg" alt="Email: hello@leavetown.com">
+        <h4>@ResourcesShared.Email:</h4> <a href="mailto:@ResourcesMicroSiteSpecific.PrimaryContactEmail">@ResourcesMicroSiteSpecific.PrimaryContactEmail</a>
+    </div>
+</section>
+
+<section class="phone-numbers">
+    <div>
+        <RadzenImage Path="images/whitelabel/phone_icon.svg" />
+        <div class="phone-text">
+            <h4>@(ResourcesMicroSiteSpecific.PrimaryContactLocationDescription ?? ResourcesMicroSiteSpecific.PrimaryPhysicalAddressPrefix):</h4>
+            <p><a href="tel:@(ResourcesMicroSiteSpecific.PrimaryContactPhone)">@(ResourcesMicroSiteSpecific.PrimaryContactPhone)</a></p>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(ResourcesMicroSiteSpecific.SecondaryContactPhone))
+    {
+        <div>
+            <RadzenImage Path=@GetSecondaryPhoneTypePath() />
+            <div class="phone-text">
+                <h4>@ResourcesMicroSiteSpecific.SecondaryContactLocationDescription:</h4>
+                <p><a href="tel:@(ResourcesMicroSiteSpecific.SecondaryContactPhone)">@(ResourcesMicroSiteSpecific.SecondaryContactPhone)</a></p>
+            </div>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(ResourcesMicroSiteSpecific.TertiaryContactPhone))
+    {
+        <div>
+            <RadzenImage Path="images/whitelabel/phone_icon.svg" />
+            <div class="phone-text">
+                <h4>@ResourcesMicroSiteSpecific.TertiaryContactLocationDescription:</h4>
+                <p><a href="tel:@(ResourcesMicroSiteSpecific.TertiaryContactPhone)">@(ResourcesMicroSiteSpecific.TertiaryContactPhone)</a></p>
+            </div>
+        </div>
+    }
+</section>
+
+<div class="contact-us-container">
+    <section class="contact-us">
+        <div>
+            <h1>@ResourcesShared.ContactUs</h1>
+            <p>@ResourcesMicroSiteSpecific.ContactFormPreamble</p>
+        </div>
+        <InquiryForm />
+    </section>
+</div>
+
+<Footer />

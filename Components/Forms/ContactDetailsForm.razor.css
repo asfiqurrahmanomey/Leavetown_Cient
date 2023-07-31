@@ -1,0 +1,54 @@
+﻿.cd-form-details {
+    margin-top: 2rem;
+}
+
+    .cd-form-details > h3 {
+        margin-left: 2rem;
+        font-weight: var(--fontWeights-bold);
+        line-height: var(--lineHeights-shorter);
+        font-size: var(--fontSizes-lg);
+        color: var(--colors-text);
+        margin-bottom: var(--space-4);
+    }
+
+    .cd-form-details > span {
+        font-family: var(--fonts-body);
+        font-weight: var(--fontWeights-bold);
+        line-height: var(--lineHeights-shorter);
+        font-size: var(--fontSizes-lg);
+        color: var(--colors-text);
+        padding: 2rem;
+    }
+
+    .cd-form-details > ::deep .rz-card {
+        margin: 0.5rem 2rem;
+    }
+
+.nav-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: solid 0.05rem var(--colors-gray-100);
+    padding: 2rem;
+}
+
+    .nav-row > ::deep .rz-button {
+        width: auto;
+    }
+
+.validation-container ::deep .validation-errors{
+    margin-left: 2rem;
+}
+
+::deep .rz-dropdown {
+    font-size: var(--fontSizes-md);
+    height: var(--sizes-10);
+}
+
+::deep .rz-placeholder {
+    color: rgb(150 157 162);
+}
+
+.validation-row {
+    margin-left: 2rem;
+}

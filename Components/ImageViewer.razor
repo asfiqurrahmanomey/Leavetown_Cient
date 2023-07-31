@@ -1,0 +1,31 @@
+﻿@if(_visible && Images.Any())
+{
+    <div @ref="@_imageViewer" @onkeydown="HandleKeyDown" tabindex="0" class="iv-main">
+        <button hidden="@(Index <= 0)" @onclick="@(() => PreviousImage())"><RadzenIcon Icon="chevron_left" /></button>
+        <div class="iv-background" @onclick="@(() => Close())"></div>
+        <div class="iv-gallery">
+            <div style="width: @($"{Images.Count() * 100}%");transform: translate3d(@($"calc({Index} * -100vw)"), 0px, 0px);">
+                @foreach (var image in Images)
+                {
+                    <div class="iv-wrapper" style="min-width: @($"{100 / Images.Count()}%")">
+                        <RadzenImage Path="@image.Url" />
+                    </div>
+                }
+            </div>
+        </div>
+        <button hidden="@(Index + 1 >= Images.Count())" @onclick="@(() => NextImage())"><RadzenIcon Icon="chevron_right" /></button>
+        <div class="overlay" @onclick="Close">
+            <div>
+                <button @onclick="@(() => ToggleFullscreen())" @onclick:stopPropagation="true">
+                    <RadzenIcon id="fullscreen-icon" class="active" Icon="fullscreen" />
+                    <RadzenIcon id="fullscreen-exit-icon" Icon="fullscreen_exit" />
+                </button>
+                <button @onclick="@(() => Close())"><RadzenIcon class="active" Icon="close" @onmousedown:preventDefault /></button>
+            </div>
+            <div>
+                <span>@(Images[Index].Caption)</span>
+                <span>@string.Format(ResourcesShared.IndexCounter, (Index + 1).ToString(), Images.Count.ToString())</span>
+            </div>
+        </div>
+    </div>
+}

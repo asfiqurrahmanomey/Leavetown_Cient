@@ -1,0 +1,96 @@
+﻿.additional-filters {
+    display: flex;
+    flex-direction: column;
+}
+.rooms-and-beds ::deep .counter-container p {
+    font-weight:normal;
+}
+.filter-category {
+    font-weight: bold;
+}
+.rooms-beds-filter-title {
+    padding-left:1rem;
+}
+    .additional-filters .filters-container {
+        height: calc( 100vh - 10.85rem ); 
+        overflow: auto;
+    }
+
+    .additional-filters footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        height: 2.5rem;
+    }
+
+        .additional-filters footer ::deep button {
+            width: fit-content;
+        }
+
+.amenity-filters-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 1rem;
+    font-weight: 600;
+    padding-bottom: 1rem;
+}
+
+    
+
+    .amenity-filters-container .amenity-filters {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+        .amenity-filters-container .amenity-filters .filter {
+            width: 50%;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+
+    .amenity-filters-container ::deep .show-more {
+        width: fit-content;
+        height: fit-content;
+        font-size: small;
+        min-height: 1.5rem;
+        padding: 0.2rem 0.4rem 0.1rem;
+        margin-top: 0.5rem;
+    }
+
+        .amenity-filters-container ::deep .show-more .rz-button-text {
+            line-height: normal;
+        }
+
+.filters-container .amenity-filters-container .amenity-filters.collapsed {
+    height: 6rem;
+    overflow: hidden;
+}
+
+.filters-container .amenity-filters-container .amenity-filters.expanded {
+    height: auto;
+}
+
+
+.filter ::deep .title {
+    font-weight: normal;
+}
+
+@media only screen and (max-width:48em) {
+    .amenity-filters-container .amenity-filters .filter {
+        width: 100%;
+    }
+
+    .filters-container .amenity-filters-container .amenity-filters.collapsed {
+        height: 12rem;
+        overflow: hidden;
+    }
+}
+
+@media only screen and (min-width:48em) {
+    ::deep .price-filter-container {
+        display: none;
+    }
+}

@@ -1,0 +1,45 @@
+﻿@using Leavetown.Client.Components.Inline
+
+@if(Booking != null)
+{
+    <div class="co-panel-content">
+        <RadzenCard>
+            @if (ResourcesShared.Booking != null)
+            {
+                <div>@ResourcesShared.Booking</div>
+            }
+            <div><LocationInfo ImageUrl="@Listing.HeroImage?.Url" PropertyName="@Listing.SalesChannelHeadline" CityName="@Listing.CityName" /></div>
+            <div class="co-booking-stay-info">
+                <GuestInfo AdultCount="@Booking.NumberOfAdults" ChildCount="@Booking.NumberOfChildren" PetCount="@Booking.NumberOfPets" />
+                <DateRange Checkin="@Booking.CheckIn" Checkout="@Booking.CheckOut" />
+            </div>
+            @{
+                var hasError = Quote?.BookingErrorCodes?.Any();
+            }
+            @if (Booking != null)
+            {
+                @if (Quote == null)
+                {
+                    <div class="spinner-container">
+                        <LoadingIndicator />
+                    </div>
+                }
+                else
+                {
+                    @if (!hasError.HasValue || hasError.Value)
+                    {
+                        <div>
+                            <BookingErrors ErrorMessageCodes="@Quote.BookingErrorCodes!.ToList()" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <CostCalculation StayNights="@Booking.Days" Quote="@Quote"></CostCalculation>
+                        </div>
+                    }
+                }
+            }
+        </RadzenCard>
+    </div>
+}

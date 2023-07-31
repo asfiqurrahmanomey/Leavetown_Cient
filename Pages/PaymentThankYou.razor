@@ -1,0 +1,42 @@
+﻿@page "/payment/thankyou"
+@page "/{Culture}/payment/thankyou"
+
+<PageTitle>@ResourcesShared.PaymentThankYouPageTitle</PageTitle>
+
+<div class="payment-page">
+    <Header />
+    <div class="content">
+        <div>
+            <h1>@_heading</h1>
+            <h4>@_subHeading</h4>
+        </div>
+        <div id="payment-form">
+            <div class="payment-container">
+                <img src="@_imageUrl" />
+                <div>
+                    @if (_isLoading)
+                    {
+                        <div class="skeleton">
+                            <div class="title-skeleton" />
+                            <div class="container-skeleton">
+                                <div class="image-skeleton" />
+                                <div class="field-skeleton">
+                                    <div />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="thankyou">
+                            <h1>@ResourcesShared.PaymentThankYouPageTitle</h1>
+                            <h4>@ResourcesShared.PaymentThankYouEnjoyYourStay</h4>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div id="error-message">@_errorMessage</div>
+        </div>
+    </div>
+    <Footer />
+</div>

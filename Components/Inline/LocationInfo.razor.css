@@ -1,0 +1,39 @@
+﻿.li-container {
+    border-bottom: solid 0.05rem var(--colors-gray-100);
+    align-items: center;
+}
+
+::deep img {
+    max-width: 49%;
+    float: right;
+    border-radius: var(--radii-md);
+    margin-left: 0.5rem;
+    object-fit: cover;
+}
+
+.li-property-name {
+    font-weight: var(--fontWeights-semibold);
+    line-height: var(--lineHeights-shorter);
+    font-size: var(--fontSizes-md);
+    color: var(--colors-text);
+}
+
+.li-city-name {
+    font-weight: var(--fontWeights-normal);
+    line-height: var(--lineHeights-base);
+    font-size: var(--fontSizes-md);
+    margin-bottom: var(--space-0);
+    display: flex;
+    align-items: center;
+}
+
+    .li-city-name > ::deep i {
+        font-size: 1rem;
+        margin-right: 0.3rem;
+    }
+
+/*@media screen and (min-width: 62em) {
+    .li-property-name {
+        font-size: var(--fontSizes-lg);
+    }
+}*/

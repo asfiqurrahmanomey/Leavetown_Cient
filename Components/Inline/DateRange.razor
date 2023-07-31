@@ -1,0 +1,5 @@
+﻿@{
+    string dateFormat = IncludeYear ? "MMM dd, yyyy" : "MMM dd";
+}
+
+<span><RadzenIcon Icon="calendar_today" />@($"{Checkin.ToString(dateFormat)}\u2014{Checkout.ToString(dateFormat)}")</span>

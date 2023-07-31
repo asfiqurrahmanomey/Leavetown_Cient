@@ -1,0 +1,626 @@
+﻿h2 {
+    text-align: center;
+    font-weight: var(--fontWeights-bold);
+    line-height: var(--lineHeights-shorter);
+    color: var(--colors-text);
+    margin-bottom: 2.125rem;
+}
+
+p {
+    font-weight: var(--fontWeights-normal);
+    line-height: var(--lineHeights-tall);
+    font-size: var(--fontSizes-lg);
+    text-align: left;
+    margin-bottom: var(--space-5);
+}
+
+section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    max-width: 75rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+::deep .carousel-container,
+::deep .listing-card-details {
+    width: unset !important;
+}
+
+.home-car-rental-section > div > ::deep button,
+.home-list-with-us-section > div > ::deep button,
+.home-newsletter-section > div > ::deep form > button {
+    width: 10rem;
+    height: 3rem;
+}
+
+.home-page {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.banner-image {
+    width: 100%;
+    position: relative;
+}
+
+    .banner-image > ::deep img,
+    .banner-image > ::deep video
+    {
+        width: 100%;
+        height: 31rem;
+        object-fit: cover;
+    }
+
+    @media only screen and (max-width: 75em) {
+        .banner-image > ::deep img,
+        .banner-image > ::deep video {
+            height: 27rem;
+        }
+    }
+
+    @media only screen and (max-width: 48em) {
+        .banner-image > ::deep img,
+        .banner-image > ::deep video {
+            height: 16rem;
+        }
+    }
+
+    .banner-image > ::deep button {
+        position: absolute;
+        width: auto;
+        right: 0;
+        margin: 1rem;
+    }
+
+    .home-filter-container {
+        position: relative;
+    }
+
+    .home-filter-details {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        padding: 2rem;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: auto;
+        top: unset;
+    }
+
+        .home-filter-details > div {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            grid-gap: 0.5rem;
+            width: 100%;
+        }
+
+    .home-filter-details > div > ::deep #location-popover {
+        grid-row: 1;
+        grid-column-start: span 2;
+    }
+
+    .home-filter-details > div > ::deep #dates-popover {
+        grid-row: 2;
+        grid-column: 1;
+    }
+
+    .home-filter-details > div > ::deep #guests-popover {
+        grid-row: 2;
+        grid-column: 2;
+    }
+
+    .home-filter-details > div > ::deep button {
+        grid-row: 3;
+        grid-column-start: span 2;
+        width: auto;
+    }
+
+
+.home-page > div:nth-child(2n+1) {
+    background: var(--colors-home-page-alternate-background);
+}
+
+    .home-page > div:nth-child(2n) {
+        background: var(--colors-white);
+    }
+
+    .home-nav-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 2rem 2rem 2rem;
+    }
+
+    .home-nav-section > div:first-of-type {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .home-nav-section > div > p {
+        text-align: left;
+    }
+
+    .home-nav-section > div > ::deep * {
+        margin-top: 0.5rem;
+    }
+
+    .home-nav-section > div > h2 {
+        max-width: 18rem;
+        font-size: 2.125rem;
+    }
+
+    .home-nav-section > div > div:not(.home-nav-button-list) {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: 1rem;
+    }
+
+    .home-nav-section > div > div > ::deep img {
+        object-fit: none;
+        width: fit-content;
+    }
+
+    .home-nav-button-list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .home-nav-button-list > ::deep button {
+        width: auto;
+        margin: 0.25rem;
+    }
+
+    .home-guarantee-section {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .home-guarantee-items > div > h4 {
+        margin: 1.5rem;
+    }
+
+    .home-guarantee-items > div > p {
+        text-align: center;
+    }
+
+    .home-feature-properties-section {
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 5rem;
+        max-width: 90%;
+    }
+
+    ::deep .home-feature-properties-section .card-container-outer {
+        margin-right: 1em;
+    }
+
+    ::deep .home-feature-properties-section .property-name {
+        text-overflow: ellipsis;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: var(--chakra-line-clamp);
+        --chakra-line-clamp: 1;
+    }
+    
+    ::deep  .home-feature-properties-section .rz-card{
+        height:25rem;
+    }
+
+    ::deep  .home-feature-properties-section .view-button{
+        display:initial;
+    }
+    
+    .home-feature-properties-section > div {
+        max-width: 100%;
+    }
+
+    .home-feature-properties-section > h2 {
+        padding-top: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    .home-car-rental-section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .home-car-rental-section > div {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 2rem 10rem 2rem;
+    }
+
+    .home-car-rental-section > ::deep img {
+        width: 100%;
+    }
+
+    .home-car-rental-section > div > h2 {
+        font-weight: var(--fontWeights-bold);
+        line-height: var(--lineHeights-shorter);
+    }
+
+    .home-car-rental-section > div > p {
+        text-align: center;
+    }
+
+    .home-review-section {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 8rem 2rem 2rem 2rem;
+    }
+
+    .home-review-section > ::deep img {
+        position: absolute;
+        top: -3.5rem;
+    }
+
+    .home-review-section > h2 {
+        padding-right: 3rem;
+    }
+
+
+.home-review-section > div > h2 {
+    text-align: left;
+    grid-row: 1 / span 2;
+}
+.home-review-section > div > div.review-text {
+    grid-row:1;
+}
+.home-review-section > div > div.reviewer-name {
+    grid-row: 2;
+    font-weight: var(--fontWeights-bold);
+}
+@media only screen and (min-width: 48em) {
+    .home-review-section > div {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .home-review-section > div > h2 {
+        padding-right: 3rem;
+    }
+}
+@media only screen and (max-width: 48em) {
+    .home-review-section > div > h2,
+    .home-review-section > div > div.review-text,
+    .home-review-section > div > div.review-text > p,
+    .home-review-section > div > div.reviewer-name {
+        text-align: center;
+    }
+    .home-review-section > div > div.reviewer-name {
+        margin-bottom: 2rem;
+    }
+}
+
+    .home-newsletter-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 5rem 2rem;
+    }
+
+        .home-newsletter-section > ::deep img {
+            width: 3.5rem;
+            height: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .home-newsletter-section > div > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+    .home-list-with-us-section {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 5rem;
+    }
+        .home-list-with-us-section > div.image-container {
+            position:relative;
+        }
+        .home-list-with-us-section > div.image-container > img.main-image {
+            object-fit: cover;
+            width: 100%;
+        }
+            .home-list-with-us-section > div.image-container > img.overlay {
+                position: absolute;
+            }
+                .home-list-with-us-section > div.call-to-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+        }
+
+            .home-list-with-us-section > div.call-to-action > ::deep button {
+                width: 90%;
+            }
+
+        .home-list-with-us-section > div.call-to-action > h2 {
+            padding: 3rem 2rem 1rem 2rem;
+            margin-bottom: unset;
+        }
+
+        .home-list-with-us-section > div.call-to-action > p {
+            padding: 1rem;
+            text-align: center;
+        }
+
+    /* Medium devices (landscape tablets, 768px and up) */
+    @media only screen and (min-width: 48em) {
+        .home-filter-details > div {
+            display: flex;
+            width: 100%;
+        }
+
+            .home-filter-details > div > ::deep div,
+            .home-filter-details > div > ::deep button {
+                width: 100%;
+            }
+
+            .home-filter-details > div > ::deep button {
+                width: 100%;
+                max-width: 6rem;
+            }
+
+        .home-nav-section {
+            flex-direction: row;
+            padding: 2rem 2rem 2rem 0rem;
+            display: grid;
+            grid-template-columns: 65% 35%;
+            align-items: start;
+        }
+
+            .home-nav-section > div:first-of-type {
+                flex-direction: row;
+            }
+
+            .home-nav-section > div > h2 {
+                text-align: left;
+                margin: 1rem 3rem 1rem 1rem;
+                max-width: 11rem;
+                font-size: 2.375rem;
+            }
+
+        .home-guarantee-items {
+            display: grid;
+            grid-auto-columns: minmax(0,1fr);
+            grid-auto-flow: column;
+            margin-top: 2.5rem;
+            grid-gap: 0 1.25rem;
+        }
+
+        .home-car-rental-section > div {
+            text-align: left;
+            align-items: flex-start;
+        }
+
+            .home-car-rental-section > div > h2 {
+                text-align: left;
+            }
+
+            .home-car-rental-section > div > ::deep button {
+                width: auto;
+            }
+
+            .home-car-rental-section > div > p {
+                text-align: left;
+            }
+
+        .home-review-section {
+            align-items: flex-start;
+        }
+
+            .home-review-section > h2 {
+                text-align: left;
+            }
+
+        .home-newsletter-section {
+            align-items: flex-start;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 2rem;
+        }
+
+            .home-newsletter-section > div > div {
+                align-items: flex-start;
+            }
+
+                .home-newsletter-section > div > div > h2 {
+                    text-align: left;
+                    width: 75%;
+                }
+
+        .home-list-with-us-section > div.call-to-action {
+            align-items: flex-start;
+            padding: 4rem 1rem;
+        }
+
+            .home-list-with-us-section > div.call-to-action > h2 {
+                padding: 1rem 6rem;
+                margin-bottom: unset;
+                text-align: left;
+                padding-left: unset;
+                max-width: 75%;
+            }
+
+            .home-list-with-us-section > div.call-to-action > p {
+                text-align: left;
+                padding-left: unset;
+            }
+
+            .home-list-with-us-section > div.call-to-action > ::deep button {
+                width: auto;
+            }
+        .home-list-with-us-section > div.call-to-action {
+            padding: 3rem 1rem;
+        }
+
+    }
+
+    /* Large devices (laptops/desktops, 992px and up) */
+    @media only screen and (min-width: 62em) {
+
+        .home-feature-properties-section > div {
+            flex-direction: row;
+        }
+
+        .home-car-rental-section {
+            flex-direction: row-reverse;
+            margin-top: 5rem;
+            margin-bottom: 7.5rem;
+        }
+
+            .home-car-rental-section > ::deep img {
+                width: 50%;
+            }
+
+            .home-car-rental-section > div {
+                padding-right: 5rem;
+                justify-content: space-between;
+                padding: 2rem;
+            }
+
+
+        .home-review-section {
+            flex-direction: row;
+        }
+
+        .home-newsletter-section > div {
+            display: flex;
+            flex-direction: row;
+        }
+
+            .home-newsletter-section > div > div {
+                width: 75%;
+            }
+
+        .home-list-with-us-section {
+            align-items: center;
+            flex-direction: row;
+            margin: unset;
+            max-width: unset;
+        }
+
+            .home-list-with-us-section > div {
+                width: 50%;
+            }
+            .home-list-with-us-section > div.call-to-action {
+                padding: 1rem 3rem;
+            }
+
+                .home-list-with-us-section > div.call-to-action > h2 {
+                    padding: unset;
+                    max-width: unset;
+                }
+
+            .home-list-with-us-section > div.image-container > img.main-image {
+                object-fit: none;
+/*                max-height: 35rem;*/
+            }
+    }
+
+    /* Extra large devices (large laptops and desktops, 1200px and up) */
+    @media only screen and (min-width: 75em) {
+        section {
+            margin-bottom: 5rem;
+            margin-top: 5rem;
+        }
+
+        .home-filter-details {
+            top: -3.5rem;
+            position: absolute;
+            border-radius: var(--radii-xl);
+            max-width: 53rem;
+        }
+
+            .home-filter-details > div > ::deep #dates-popover {
+                max-width: 15rem;
+            }
+
+            .home-filter-details > div > ::deep #guests-popover {
+                max-width: 15rem;
+            }
+
+        .home-nav-section {
+            padding-top: 5rem;
+            margin-right: auto;
+            margin-left: auto;
+            margin-bottom: unset;
+            padding-bottom: 0;
+        }
+
+            .home-nav-section > div:first-of-type {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: space-evenly;
+                align-items: flex-start;
+                padding-right: 5rem;
+            }
+
+            .home-nav-section > div > h2 {
+                max-width: 30rem;
+                font-size: 2.625rem;
+            }
+
+        .home-nav-button-list {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+            .home-nav-button-list > ::deep button {
+                width: auto;
+            }
+
+        .home-guarantee-section {
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .home-feature-properties-section {
+            padding: unset;
+        }
+
+            .home-feature-properties-section > h2 {
+                padding: unset;
+            }
+
+        .home-review-section {
+            padding: 2rem;
+            display: flex;
+        }
+
+            .home-review-section > ::deep img {
+                top: -8.5rem;
+            }
+
+        .home-newsletter-section {
+            padding: 0 2rem;
+        }
+
+        .home-list-with-us-section > div.call-to-action {
+            padding: 1rem 8rem;
+        }
+    }

@@ -1,0 +1,27 @@
+﻿@page "/accommodation/{PrimaryDestinationToken}/"
+@page "/{Culture}/accommodation/{PrimaryDestinationToken}/"
+@page "/destinations/{PrimaryDestinationToken}"
+@page "/destinations/{PrimaryDestinationToken}/{SecondaryDestinationToken}"
+@page "/destinations/{PrimaryDestinationToken}/{SecondaryDestinationToken}/{TertiaryDestinationToken}"
+@page "/{Culture}/destinations/{PrimaryDestinationToken}"
+@page "/{Culture}/destinations/{PrimaryDestinationToken}/{SecondaryDestinationToken}"
+@page "/{Culture}/destinations/{PrimaryDestinationToken}/{SecondaryDestinationToken}/{TertiaryDestinationToken}"
+@using Leavetown.Client.Components
+@using Leavetown.Client.Pages.StaticPages
+<!--
+    With the structuire of the routes above we can have SEO friendly urls like the ones below:
+        - /accommodation/Banff
+        - /destinations/Canada
+        - /destinations/Canada/Alberta
+        - /destinations/Canada/Alberta/Banff
+        - /destinations/Alberta
+        - /destinations/Alberta/Banff
+        - /destinations/Banff
+    The redirect to the '/accomodations'' route will always use the last non-null token in the route as the 'location' filter.
+
+    Ideally, external links should be culture agnostic (no culture in the url) but this redirect will still work if it is included.
+        - /en/accommodation/Banff
+        - /en/destinations/Canada
+        - /en/destinations/Canada/Alberta
+        - /en/destinations/Canada/Alberta/Banff
+-->

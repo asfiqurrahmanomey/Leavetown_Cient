@@ -1,0 +1,11 @@
+﻿@page "/car-rental"
+@page "/{Culture}/car-rental"
+
+<PageTitle>Car Rentals</PageTitle>
+
+<div class="car-rental-page">
+    <Header />
+    <iframe width="100%" scrolling="no" allowtransparency="true" frameborder="0" id="rc-connect-iframe"
+            src="@($"https://secure.rentalcars.com/partners/integrations/stand-alone-app/?preflang={Culture}&integration=stand-alone&template=universal&enable-return-checkbox=true&adplat=leavetown.com/car-rentals/&primary=fd3c3d&cor=ca&button-size=large&hero-image=12&form-bg=fcfcfc&affiliateCode=leavetown&fts=true&return-checkbox-enabled=true")" height="973"></iframe>
+    <Footer />
+</div>

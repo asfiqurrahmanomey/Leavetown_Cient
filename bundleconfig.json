@@ -1,0 +1,12 @@
+[
+  {
+    "outputFileName": "wwwroot/js/client.bundled.min.js",
+    "inputFiles": [
+      "Components/*.js",
+      "Components/Forms/*.js",
+      "Components/Inline/*.js",
+      "Services/Scripts/*.js",
+      "Pages/*.js"
+    ]
+  }
+]

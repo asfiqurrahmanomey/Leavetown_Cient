@@ -1,0 +1,102 @@
+﻿@using Leavetown.Shared.Constants
+
+<section class="cp-section">
+    <div class="cp-section-policy">
+        <RadzenIcon 
+            Icon="@(!_checkinHasValue || _isFullRefundAvailable ? "check" : "close")"
+            class="@(_isFullRefundActive ? "policy-valid" : "policy-invalid")" />
+        <div>
+            <span>@ResourcesShared.FullRefund</span>
+            @_fullRefundPolicyText
+        </div>
+    </div>
+    @if (_isHalfRefundVisible)
+    {
+        <div class="cp-section-policy">
+            <RadzenIcon Icon="@(!_checkinHasValue || !_isFullRefundAvailable && _isHalfRefundAvailable ? "check" : "close")"
+                    class="@(_isHalfRefundActive ? "policy-valid" : "policy-invalid")" />
+            <div>
+                <span>@ResourcesShared.HalfRefund</span>
+                @_halfRefundPolicyText
+            </div>
+        </div>
+    }
+    <div class="cp-section-policy">
+        <RadzenIcon Icon="@(!_checkinHasValue || !_isFullRefundAvailable && !_isHalfRefundAvailable ? "check" : "close")"
+                    class="@(_isNoRefundActive ? "policy-valid" : "policy-invalid")"/>
+        <div>
+            <span>@ResourcesShared.NoRefund</span>
+            @_noRefundPolicyText
+        </div>
+    </div>
+    <div class="cp-section-timeline">
+        <div class="cp-timeline-labels">
+            <div>
+                <div class="@(_isFullRefundActive ? "active" : "")">
+                    @if (_isFullRefundActive)
+                    {
+                        <RadzenIcon Icon="check" />
+                    }
+                    @ResourcesShared.FullRefund
+                </div>
+            </div>
+            @if (_isHalfRefundVisible)
+            {
+                <div>
+                    <div class="@(_isHalfRefundActive ? "active" : "")">
+                        @if (_isHalfRefundActive)
+                        {
+                            <RadzenIcon Icon="check" />
+                        }
+                        @ResourcesShared.HalfRefund
+                    </div>
+                </div>
+            }
+            <div>
+                <div class="@(_isNoRefundActive ? "active" : "")">
+                    @if (_isNoRefundActive)
+                    {
+                        <RadzenIcon Icon="check" />
+                    }
+                    @ResourcesShared.NoRefund
+                </div>
+            </div>
+        </div>
+        <div class="cp-timeline-line-container">
+            <div class="cp-timeline-lines">
+                <div class="@(_isFullRefundActive ? "active" : "")"></div>
+                @if (_isHalfRefundVisible)
+                {
+                    <div class="@(_isHalfRefundActive ? "active" : "")"></div>
+                }
+                <div class="@(_isNoRefundActive ? "active" : "")"></div>
+            </div>
+            <div class="cp-timeline-nodes">
+                <div><div class="circle"></div></div>
+                <div><div class="circle"></div></div>
+                @if (_isHalfRefundVisible)
+                {
+                    <div><div class="circle"></div></div>
+                }
+                <div><RadzenIcon Icon="key" /></div>
+            </div>
+        </div>
+        <div class="cp-timeline-ranges">
+            <div>
+                <span>@(_checkinHasValue ? $"{DateTime.Now:MMM dd}" : ResourcesShared.Booked)</span>
+            </div>
+            <div>
+                <span>@_fullRefundTimelineText</span>
+            </div>
+            @if (_isHalfRefundVisible)
+            {
+                <div>
+                    <span>@_halfRefundTimelineText</span>
+                </div>
+            }
+            <div>
+                <span>@(_checkinHasValue ? $"{Checkin:MMM dd}" : ResourcesShared.CheckIn)</span>
+            </div>
+        </div>
+    </div>
+</section>

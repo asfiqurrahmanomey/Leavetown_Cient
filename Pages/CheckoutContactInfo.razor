@@ -1,0 +1,30 @@
+﻿@page "/checkout/info"
+@page "/{Culture}/checkout/info"
+
+@using Leavetown.Client.Components.Inline;
+@using Leavetown.Client.Components
+@using Leavetown.Client.Components.Filters
+@using Leavetown.Client.Components.Forms
+@using Leavetown.Client.Constants
+
+<PageTitle>@(_listing?.SeoPageTitle ?? "Loading...")</PageTitle>
+<UriParser @ref="@_uriParser" Culture="@Culture" />
+<div class="co-page">
+    <Header />
+    <div class="co-container">
+        <FormSteps ActiveIndex="2" Items="@_checkoutStepItems" />
+        @if(_booking != null)
+        {
+            <div class="co-form-content">
+                <RadzenCard class="co-form-card">
+                    <ContactDetailsForm Data="@_booking"
+                                    Culture="@Culture"
+                                    Title="@ResourcesShared.YourContactDetails"
+                                    ReturnUrl="@($"{Culture}/checkout{_booking!.Query}")"
+                                    OnContactDetailsSubmit="@OnContactDetailsSubmit" />
+                </RadzenCard>
+                <CheckoutPanel Booking="@_booking" Listing="@_listing" Quote="@_quote" />
+            </div>
+        }
+    </div>
+</div>

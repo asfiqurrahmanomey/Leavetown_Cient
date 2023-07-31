@@ -1,0 +1,58 @@
+﻿@using Leavetown.Client.Components.Inline
+@using BlazorDateRangePicker
+
+@{
+    DateTime startDate = DateRangePicker?.TStartDate?.Date ?? DateTime.MinValue;
+    DateTime endDate = DateRangePicker?.TEndDate?.Date ?? DateTime.MaxValue;
+}
+
+@if (Inline)
+{
+    <div class="date-filter-content">
+        @RenderDatePicker()
+    </div>
+}
+else
+{
+    <Popover @ref="@DatesPopover" Id="@Id" class="date-filter-content date-filter-popover" Placeholder="@GetTitle()" Title="@GetTitle()">
+        @RenderDatePicker()
+    </Popover>
+}
+
+@code {
+    private RenderFragment RenderDatePicker() => __builder =>
+    {
+        <div class="af-date-filter-container" @attributes="@CapturedAttributes">
+            <section class="date-filter-popover-title-bar">
+                @if (!ClearTitleOnSelect || !AvailabilityValue.HasValue)
+                {
+                    <h5 class="date-filter-title">@Title</h5>
+                }
+                @if (IsEndDateSelecting || AvailabilityValue.HasValue)
+                {
+                    <button onclick="@(() => Reset())"><RadzenIcon Icon="close" />@ResourcesShared.ClearDatesButtonText</button>
+                }
+            </section>
+            <div class="date-filter-container">
+                <DateRangePicker @ref="@DateRangePicker" class="date-picker"
+                         ShowDropdowns="false"
+                         SingleDatePicker="false"
+                         ShowOnlyOneCalendar="@ShowOnlyOneCalendar"
+                         LinkedCalendars="@LinkedCalendars"
+                         AutoAdjustCalendars="false"
+                         AutoApply="true"
+                         AlwaysShowCalendars="true"
+                         MinDate="@GetMinDate()"
+                         MaxDate="@GetMaxDate()"
+                         OnSelectionStart="@OnStartDateSelected"
+                         OnRangeSelect="@OnDateValueChanged"
+                         DaysEnabledFunction="@OnDateEnabling"
+                         CustomDateFunction="@OnDateStyling"
+                         FirstDayOfWeek="DayOfWeek.Sunday"
+                         Inline="true">
+                </DateRangePicker>
+            </div>
+        </div>
+    };
+}
+

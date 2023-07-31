@@ -1,0 +1,23 @@
+﻿<div id="@Id" class="lt-popover-container">
+    <div @attributes=@CapturedAttributes>
+        <RadzenButton ButtonStyle="ButtonStyle.Secondary" class="lt-popover-dropdown-btn" Click="@ToggleCardVisibility">
+            <span class="lt-popover-dropdown-btn-text">@Placeholder</span>
+            <RadzenIcon class="dd-caret" Icon="expand_more"></RadzenIcon>
+        </RadzenButton>
+        <div class="lt-popover @(FullScreenOnMobile ? "fullscreen-mobile" : "") @(IsCentered ? "centered" : "")" style="display:none;">
+            <RadzenCard class="lt-card">
+                @if (!string.IsNullOrEmpty(Title))
+                {
+                    <div class="lt-popover-title-bar">
+                        <div>@Title</div>
+                        <button class="lt-popover-btn" @onclick="@(() => ToggleCardVisibility())"><RadzenIcon Icon="close"></RadzenIcon></button>
+                    </div>
+                }
+                @ChildContent
+                <div class="mobile-close-button-container">
+                    <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="@ResourcesShared.Continue" Click="@ToggleCardVisibility" />
+                </div>
+            </RadzenCard>
+        </div>
+    </div>
+</div>

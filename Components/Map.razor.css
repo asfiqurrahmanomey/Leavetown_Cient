@@ -1,0 +1,94 @@
+﻿div {
+    height: 100%;
+    width: 100%;
+}
+
+.map-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: calc(100vh - 5rem);
+}
+
+.mapboxgl-map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+::deep .mapboxgl-popup-content {
+    background: unset;
+    padding: unset;
+    box-shadow: unset;
+    max-width: inherit;
+}
+
+::deep .mapboxgl-popup-close-button {
+    font-weight: var(--fontWeights-normal);
+    color: #FFF;
+    background: rgba(0, 0, 0, 0.33);
+    border-radius: 0rem 0.31rem;
+}
+
+::deep .globe-marker {
+    height: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+::deep .mapboxgl-marker {
+    z-index: 0;
+    width: 0;
+}
+
+    ::deep .mapboxgl-marker > div > div:not(.marker-point) {
+        max-width: 6.25rem;
+        white-space: nowrap;
+        overflow: hidden;
+        width: fit-content;
+        background: var(--colors-white);
+        padding: 0.1rem .25rem;
+        border-radius: 0.188rem;
+        box-shadow: rgb(0 0 0 / 15%) 0.05rem 0.125rem 0.05rem;
+        z-index: 1;
+        cursor: pointer;
+        font-size: 0.875rem;
+        text-overflow: ellipsis;
+        font-family: var(--fonts-body);
+        line-height: var(--lineHeights-base);
+        font-weight: var(--fontWeights-semibold);
+        white-space: nowrap;
+        display: block;
+        transform: translate(30%, -50%);
+    }
+
+    ::deep .mapboxgl-marker .marker-point {
+        z-index: 2;
+        position: absolute;
+        width: 1rem;
+        height: 0.5rem;
+        overflow: hidden;
+        transform: translate(300%);
+        content: "";
+        position: absolute;
+        width: 0.5rem;
+        height: 0.5rem;
+        background: var(--colors-white);
+        transform: translate(20%, 100%) rotate(45deg);
+        box-shadow: rgb(0 0 0 / 15%) 0.05rem 0.125rem 0.05rem;
+    }
+
+    ::deep .mapboxgl-marker .marker-circle {
+        background-color: #ff000025;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 100%;
+        border: 0.125rem solid #ff000050;
+        transform: translate(-50%, 0);
+    }
+
+::deep .mapboxgl-popup-tip {
+    display: none;
+}

@@ -1,0 +1,10 @@
+﻿<div @attributes="@CapturedAttributes">
+    <div class="counter-container">
+        <p>@Title</p>
+        <div class="control-container">
+            <button disabled="@_isDecrementDisabled" onclick="@(() => Decrement())"><RadzenIcon Icon="remove"></RadzenIcon></button>
+            <span>@($"{Value}{(Value == MaxValue ? "" : "+")}")</span>
+            <button disabled="@_isIncrementDisabled" onclick="@(() => Increment())"><RadzenIcon Icon="add"></RadzenIcon></button>
+        </div>
+    </div>
+</div>

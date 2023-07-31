@@ -1,0 +1,178 @@
+﻿@using Leavetown.Client.Components
+@using Leavetown.Client.Components.Inline
+@using Leavetown.Client.Constants
+
+<div class="top-row">
+    <nav class="controls">
+        @if (Configuration.WhiteLabelSettings.HeaderNavShowHomeLink)
+        {
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavHomeExternalUrl ?? $"{_culture}/")" Match="NavLinkMatch.All">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkHome
+            </NavLink>
+        }
+        <NavLink class="nav-item" href="@($"{_culture}/accommodations")" Match="NavLinkMatch.All">
+            <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkAccommodations
+        </NavLink>
+        @if (Configuration.WhiteLabelSettings.HeaderNavShowAboutLink)
+        {
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavAboutExternalUrl ?? $"{_culture}/about")" Match="NavLinkMatch.All">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkAbout
+            </NavLink>
+        }
+        @if (Configuration.WhiteLabelSettings.HeaderNavShowBlogLink)
+        {
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavBlogExternalUrl ?? $"{_culture}/magazine")" Match="NavLinkMatch.All">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkBlog
+            </NavLink>
+        }
+        @if (Configuration.WhiteLabelSettings.HeaderNavShowGalleryLink)
+        {
+            <NavLink class="nav-item" href="@($"{_culture}/gallery")" Match="NavLinkMatch.All">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkGallery
+            </NavLink>
+        }
+        @if (Configuration.WhiteLabelSettings.HeaderNavShowEventsLink)
+        {
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavEventsExternalUrl ?? $"{_culture}/events")" Match="NavLinkMatch.All">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkEvents
+            </NavLink>
+        }
+        @if (Configuration.WhiteLabelSettings.HeaderNavShowLocalInfoLink)
+        {
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavLocalInfoExternalUrl ?? $"{_culture}/local-info")" Match="NavLinkMatch.All">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkLocalInfo
+            </NavLink>
+        }
+        @if (Configuration.WhiteLabelSettings.HeaderNavShowOffersLink)
+        {
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavOffersExternalUrl ?? $"{_culture}/offers")" Match="NavLinkMatch.All">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkOffers
+            </NavLink>
+        }
+        @if (Configuration.WhiteLabelSettings.HeaderNavShowOtherPropertiesLink)
+        {
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavOtherPropertiesExternalUrl ?? $"{_culture}/other-properties")" Match="NavLinkMatch.All">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkOtherProperties
+            </NavLink>
+        }
+        @if (Configuration.WhiteLabelSettings.HeaderNavShowDestinationsLink)
+        {
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavDestinationsExternalUrl ?? $"{_culture}/destinations")" Match="NavLinkMatch.All">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkDestinations
+            </NavLink>
+        }
+        @if (Configuration.WhiteLabelSettings.HeaderNavShowListWithUsLink)
+        {
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavListWithUsExternalUrl ?? $"{_culture}/list-with-us")" Match="NavLinkMatch.All">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkListWithUs
+            </NavLink>
+        }
+        @if (Configuration.WhiteLabelSettings.HeaderNavShowContactUsLink)
+        {
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavContactUsExternalUrl ?? $"{_culture}/contact")" Match="NavLinkMatch.All">
+                @ResourcesShared.ContactUs
+            </NavLink>
+        }
+        @if (Configuration.WhiteLabelSettings.HeaderNavShowSearchLink)
+        {
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavSearchExternalUrl ??  $"{_culture}/search")" Match="NavLinkMatch.All">
+                <RadzenIcon Icon="search" class="header-nav-icon" />
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkSearch
+            </NavLink>
+        }
+        @if (Configuration.WhiteLabelSettings.HeaderNavShowUserProfileLink)
+        {
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavUserProfileExternalUrl ??  $"{_culture}/user-profile")" Match="NavLinkMatch.All">
+                <RadzenIcon Icon="account_circle" class="header-nav-icon" />
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkUserProfile
+            </NavLink>
+        }
+    </nav>
+    <div class="header-logo-container">
+        <a href="@(Configuration.WhiteLabelSettings.NavHomeExternalUrl ?? $"{_culture}/")">
+            <RadzenImage class="brand-logo" Path="images/whitelabel/corp_logo.svg" />
+        </a>
+    </div>
+
+    <CurrencyDropDown class="currency-popover" Id="top-currency-drop-down" />
+    <button class="menu-button" @onclick="ToggleNavMenu">
+        <RadzenIcon Icon="menu" />
+    </button>
+</div>
+
+@if (!_collapseNavMenu)
+{
+    <Overlay CloseAction="@ToggleNavMenu" />
+}
+<div class="side-nav @(!_collapseNavMenu ? "slide-in-menu" : "")">
+    <div>
+        <CurrencyDropDown Id="side-currency-drop-down" />
+        <button @onclick="@ToggleNavMenu"><RadzenIcon Icon="close" /></button>
+    </div>
+    @if (Configuration.WhiteLabelSettings.HeaderNavShowHomeLink)
+    {
+        <div>
+            <NavLink class="nav-item" href="@($"{_culture}/")" Match="NavLinkMatch.All" @onclick="@ToggleNavMenu">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkHome
+            </NavLink>
+        </div>
+    }
+    <div>
+        <NavLink class="nav-item" href="@($"{_culture}/accommodations")" Match="NavLinkMatch.All" @onclick="@ToggleNavMenu">
+            <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkAccommodations
+        </NavLink>
+    </div>
+    @if (Configuration.WhiteLabelSettings.HeaderNavShowAboutLink)
+    {
+        <div>
+            <NavLink class="nav-item" href="@($"{_culture}/about")" Match="NavLinkMatch.All" @onclick="@ToggleNavMenu">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkAbout
+            </NavLink>
+        </div>
+    }
+    @if (Configuration.WhiteLabelSettings.HeaderNavShowGalleryLink)
+    {
+        <div>
+            <NavLink class="nav-item" href="@($"{_culture}/gallery")" Match="NavLinkMatch.All" @onclick="@ToggleNavMenu">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkGallery
+            </NavLink>
+        </div>
+    }
+    @if (Configuration.WhiteLabelSettings.HeaderNavShowEventsLink)
+    {
+        <div>
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavEventsExternalUrl ?? $"{_culture}/events")" Match="NavLinkMatch.All" @onclick="@ToggleNavMenu">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkEvents
+            </NavLink>
+        </div>
+    }
+    @if (Configuration.WhiteLabelSettings.HeaderNavShowLocalInfoLink)
+    {
+        <div>
+            <NavLink class="nav-item" href="@($"{_culture}/local-info")" Match="NavLinkMatch.All" @onclick="@ToggleNavMenu">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkLocalInfo
+            </NavLink>
+        </div>
+    }
+    @if (Configuration.WhiteLabelSettings.HeaderNavShowOffersLink)
+    {
+        <div>
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavOffersExternalUrl ?? $"{_culture}/offers")" Match="NavLinkMatch.All" @onclick="@ToggleNavMenu">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkOffers
+            </NavLink>
+        </div>
+    }
+    @if (Configuration.WhiteLabelSettings.HeaderNavShowListWithUsLink)
+    {
+        <div>
+            <NavLink class="nav-item" href="@(Configuration.WhiteLabelSettings.NavListWithUsExternalUrl ?? $"{_culture}/list-with-us")" Match="NavLinkMatch.All" @onclick="@ToggleNavMenu">
+                <span aria-hidden="true"></span> @ResourcesMicroSiteSpecific.NavLinkListWithUs
+            </NavLink>
+        </div>
+    }
+    <div>
+        <NavLink href="@($"{_culture}/contact")" Match="NavLinkMatch.All" @onclick="@ToggleNavMenu">
+            <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="@ResourcesShared.ContactUs" />
+        </NavLink>
+    </div>
+</div>

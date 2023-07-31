@@ -1,0 +1,114 @@
+﻿@using Leavetown.Client.Components.Inline
+<div class="footer-background">
+    <div class="footer-container">
+        @if (Configuration.WhiteLabelSettings.UseExternalMarkupForFooter) {
+            <div class="footer-content">
+                @((MarkupString)_externalMarkup)
+            </div>
+        } else {
+            <div class="footer-content">
+                <div class="footer-logo-container">
+                    <img class="full-logo" src="images/whitelabel/corp_logo_inverse.svg" loading="lazy" />
+                    <img class="reduced-logo" src="images/whitelabel/icon_footer.svg" loading="lazy" />
+                </div>
+                <div class="footer-mission-statement">
+                    @ResourcesShared.FooterMissionStatement
+                </div>
+                <div class="footer-social-links">
+                    <SocialLinks />
+                </div>
+                <hr />
+                <div class="nav-links-container">
+                <RadzenIcon Icon="link" class="footer-icon" />
+                    <ul class="nav-links">
+                        <li><RadzenLink class="footer-link" Text="@ResourcesShared.Home" Path="@(Configuration.WhiteLabelSettings.NavHomeExternalUrl ?? $"{_culture}/")" /></li>
+                        
+                        <li><RadzenLink class="footer-link" Text="@ResourcesMicroSiteSpecific.NavLinkAccommodations" Path="@($"{_culture}/accommodations")" /></li>
+                        @if (Configuration.WhiteLabelSettings.HeaderNavShowAboutLink)
+                        {
+                        <li><RadzenLink class="footer-link" Text="@ResourcesMicroSiteSpecific.NavLinkAbout" Path="@($"{_culture}/about")" /></li>
+                        }
+                        @if (Configuration.WhiteLabelSettings.FooterNavShowBlogLink)
+                        {
+                            <li><RadzenLink class="footer-link" Text="@ResourcesMicroSiteSpecific.NavLinkBlog" Path="@(Configuration.WhiteLabelSettings.NavBlogExternalUrl ?? $"{_culture}/magazine")" /></li>
+                        }
+                        @if (Configuration.WhiteLabelSettings.FooterNavShowGalleryLink)
+                        {
+                            <li><RadzenLink class="footer-link" Text="@ResourcesMicroSiteSpecific.NavLinkGallery" Path="@($"{_culture}/gallery")" /></li>
+                        }
+                        @if (Configuration.WhiteLabelSettings.FooterNavShowEventsLink)
+                        {
+                            <li><RadzenLink class="footer-link" Text="@ResourcesMicroSiteSpecific.NavLinkEvents" Path="@(Configuration.WhiteLabelSettings.NavEventsExternalUrl ?? $"{_culture}/events")" /></li>
+                        }
+                        @if (Configuration.WhiteLabelSettings.FooterNavShowLocalInfoLink)
+                        {
+                            <li><RadzenLink class="footer-link" Text="@ResourcesMicroSiteSpecific.NavLinkLocalInfo" Path="@($"{_culture}/local-info")" /></li>
+                        }
+                        @if (Configuration.WhiteLabelSettings.FooterNavShowOffersLink)
+                        {
+                            <li><RadzenLink class="footer-link" Text="@ResourcesMicroSiteSpecific.NavLinkOffers" Path="@($"{_culture}/offers")" /></li>
+                        }
+                        @if (Configuration.WhiteLabelSettings.FooterNavShowListWithUsLink)
+                        {
+                            <li><RadzenLink class="footer-link" Text="@ResourcesMicroSiteSpecific.NavLinkListWithUs" Path="@(Configuration.WhiteLabelSettings.NavListWithUsExternalUrl ?? $"{_culture}/list-with-us")" /></li>
+                        }
+                        <li><RadzenLink class="footer-link" Text="@ResourcesShared.ContactUs" Path="@(Configuration.WhiteLabelSettings.NavContactUsExternalUrl ?? $"{_culture}/contact")" /></li>
+                        <li><RadzenLink class="footer-link" Text="@ResourcesShared.TermsAndConditions" Path="@($"{_culture}/terms-and-conditions")" /></li>
+                       <li><RadzenLink class="footer-link" Text="@ResourcesShared.Privacy" Path="@($"{_culture}/privacy")" /></li>
+                        @if (Configuration.WhiteLabelSettings.FooterNavShowJetstreamLink)
+                        {
+                        <li><RadzenLink class="footer-link" Text="@ResourcesShared.Jetstream" Path="https://jetstreamtech.io/" /></li>
+                        }
+                    </ul>
+                </div>
+                <div class="primary-location-container">
+                    <RadzenIcon Icon="home" class="footer-icon" />
+                    <ul>
+                        @if (!string.IsNullOrEmpty(@ResourcesMicroSiteSpecific.PrimaryPhysicalAddressPrefix))
+                        {
+                            <li class="pre-formatted address-prefix">@(ResourcesMicroSiteSpecific.PrimaryPhysicalAddressPrefix)</li>
+                        }
+                        @if (!string.IsNullOrEmpty(@ResourcesMicroSiteSpecific.LegalEntityNameLongForm))
+                        {
+                            <li class="pre-formatted legal-entity-name">@(ResourcesMicroSiteSpecific.LegalEntityNameLongForm)</li>
+                        }
+                        <li class="pre-formatted">@(ResourcesMicroSiteSpecific.PrimaryPhysicalAddress)</li>
+                        <li><a class="footer-link" href="tel:@(ResourcesMicroSiteSpecific.PrimaryContactPhone)">@(ResourcesMicroSiteSpecific.PrimaryContactPhone)</a></li>
+                        <li>
+                            @if (!string.IsNullOrEmpty(ResourcesMicroSiteSpecific.PrimaryContactEmailDescription))
+                            {
+                                @($"{ResourcesMicroSiteSpecific.PrimaryContactEmailDescription}: ")
+                            }
+                            <a class="footer-link" href="mailto:@(ResourcesMicroSiteSpecific.PrimaryContactEmail)">@(ResourcesMicroSiteSpecific.PrimaryContactEmail)</a>
+                        </li>
+                        @if (string.IsNullOrEmpty(ResourcesMicroSiteSpecific.SecondaryPhysicalAddress)
+                       && !string.IsNullOrEmpty(ResourcesMicroSiteSpecific.SecondaryContactEmailDescription)
+                       && !string.IsNullOrEmpty(ResourcesMicroSiteSpecific.SecondaryContactEmail))
+                        {
+                            <li>@($"{ResourcesMicroSiteSpecific.SecondaryContactEmailDescription}:") <a class="footer-link" href="mailto:@(ResourcesMicroSiteSpecific.SecondaryContactEmail)">@(ResourcesMicroSiteSpecific.SecondaryContactEmail)</a></li>
+                        }
+                    </ul>
+                </div>
+                @if (!string.IsNullOrEmpty(ResourcesMicroSiteSpecific.SecondaryPhysicalAddress))
+                {
+                    <div class="secondary-location-container">
+                        <RadzenIcon Icon="home" class="footer-icon" />
+                        <ul>
+                            <li class="pre-formatted">@(ResourcesMicroSiteSpecific.SecondaryPhysicalAddress)</li>
+                            <li><a class="footer-link" href="tel:@(ResourcesMicroSiteSpecific.SecondaryContactPhone)">@(ResourcesMicroSiteSpecific.SecondaryContactPhone)</a></li>
+                            <li><a class="footer-link" href="mailto:@(ResourcesMicroSiteSpecific.SecondaryContactEmail)">@(ResourcesMicroSiteSpecific.SecondaryContactEmail)</a></li>
+                        </ul>
+                    </div>
+                }
+
+                <div class="footer-copyright-row">
+                    @footerCopyright
+                </div>
+
+                <div class="footer-overlay-image">
+                    <img src="images/whitelabel/leavetown-cutout-cliff.webp" loading="lazy" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

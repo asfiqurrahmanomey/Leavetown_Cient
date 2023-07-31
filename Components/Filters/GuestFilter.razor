@@ -1,0 +1,24 @@
+﻿<Popover @attributes="@CapturedAttributes" @ref="@_guestsPopover" Id="@Id" Placeholder="@FilterTitle" Title="@ResourcesShared.Guests" IsCentered=@IsCentered>
+    <div class="guests-filter-container">
+        <Counter @ref="@_adultCounter" 
+            Title="@ResourcesShared.Adults" 
+            MinValue="@MinAdults" 
+            MaxValue="@_maxValuePerGuestType"
+            ValueChanged="@(() => _debouncer.Debounce(() => InvokeAsync(OnGuestValueChanged)))"
+            LinkCounter="@_childrenCounter">
+        </Counter>
+        <Counter hidden="@(!IncludeChildren)" @ref="@_childrenCounter" 
+            Title="@ResourcesShared.Children" 
+            MinValue="0" 
+            MaxValue="@_maxValuePerGuestType" 
+            ValueChanged="@(() => _debouncer.Debounce(() => InvokeAsync(OnGuestValueChanged)))" 
+            LinkCounter="@_adultCounter">
+        </Counter>
+        <Counter hidden="@(!IncludePets)" @ref="@_petCounter" 
+            Title="@ResourcesShared.Pets"
+            MinValue="0" 
+            MaxValue="@PetMax" 
+            ValueChanged="@(() => _debouncer.Debounce(() => InvokeAsync(OnPetValueChanged)))">
+        </Counter>
+    </div>
+</Popover>

@@ -1,0 +1,26 @@
+﻿@inherits BaseStaticGalleryPage
+@page "/about"
+@page "/{Culture}/about"
+
+<!-- TODO - replace this content with something from strapi -->
+
+@if (!string.IsNullOrEmpty(_pageData.Content)) // This helps keep the scroll at the top when navigating to this page.
+{
+    <PageTitle>@((MarkupString)@_pageData.Title)</PageTitle>
+
+    <div class="about-us-page">
+        <Header />
+        <div class="banner-image">
+            <RadzenImage Path="@_pageData.HeroImage?.Url" />
+        </div>
+        <div class="about-us-section-container">
+            <section class="about-us-section">
+                <div class="lhs-column-top">
+                    <h1>@_pageData.Title</h1>
+                </div>
+                @((MarkupString)_pageData.Content!)
+            </section>
+        </div>
+        <Footer />
+    </div>
+}

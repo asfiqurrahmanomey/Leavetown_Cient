@@ -1,0 +1,80 @@
+﻿h4 {
+    margin: 1rem 0;
+    font-weight: bold;
+}
+
+.cs-congratulations-section {
+    border-bottom: solid 0.1rem var(--colors-gray-200);
+    padding-bottom: 1rem;
+}
+
+.cs-confirmation-details {
+    margin-top: 1rem;
+}
+
+.cs-page {
+    width: 100%;
+}
+
+.cs-content {
+    margin: 2rem;
+}
+
+.cs-button-row {
+    margin-top: 2rem;
+    border-top: solid 0.05rem var(--colors-gray-100);
+    padding-top: 2rem;
+}
+
+    .cs-button-row > ::deep button {
+        width: auto;
+    }
+
+::deep .li-container {
+    border-bottom: unset;
+    margin: 1rem 1rem 0 0;
+}
+
+::deep .li-property-name img {
+    max-width: 8rem;
+    float: left;
+    border-radius: var(--radii-md);
+    margin: 0 0.5rem 0 0;
+    object-fit: cover;
+}
+
+::deep .cioi-stay-info {
+    min-width: 7rem;
+}
+
+@media screen and (min-width: 0) {
+    :: deep .rz-card {
+        box-shadow: unset;
+    }
+}
+
+@media screen and (min-width: 48em) {
+    ::deep .rz-card {
+        box-shadow: var(--shadows-md);
+        padding: 1rem;
+        background-color: var(--colors-gray-100);
+        margin: 1rem 0;
+    }
+
+    .cs-info-row {
+        display: flex;
+        flex-direction: row;
+    }
+
+        ::deep .cioi-calendar-box {
+            background-color: var(--colors-white);
+        }
+
+    h4 {
+        margin: unset;
+    }
+
+    .cs-confirmation-details > ::deep .co-table-container {
+        box-shadow: var(--shadows-md);
+    }
+}

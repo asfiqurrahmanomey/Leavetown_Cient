@@ -1,0 +1,14 @@
+﻿@using System.Text.RegularExpressions
+
+<section class="description-section @(_descriptionExpanded ? "expand" : "")">
+    <h3>@ResourcesShared.Description</h3>
+    <p>
+        @( (MarkupString)Regex.Unescape(Description) )
+    </p>
+</section>
+@if(!string.IsNullOrEmpty(Description))
+{
+    <RadzenButton ButtonStyle="ButtonStyle.Secondary" 
+        Click="@(() => ToggleDescriptionExpand())"
+      Text="@(_descriptionExpanded ? ResourcesShared.ShowLessButtonText : ResourcesShared.ShowMoreButtonText)" />
+}

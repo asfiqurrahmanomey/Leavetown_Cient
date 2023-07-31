@@ -1,0 +1,20 @@
+﻿@using Leavetown.Client.Constants
+@using Leavetown.Client.Models
+
+<div class="price-filter-container">
+    <h5 class="price-title">@ResourcesShared.Price</h5>
+    <div class="chart-container">
+        <RadzenChart>
+            <RadzenColumnSeries Fill="lightgray" Data="@_chartData" Title="@ResourcesShared.Price" ValueProperty="NumberOfEntries" CategoryProperty="Price" />
+            <RadzenLegend Visible="false" />
+            <RadzenValueAxis Visible="false" Min="0" Max="@(_chartData != null && _chartData.Count > 0 ? _chartData.Max(x => x.NumberOfEntries) : 50)" />
+            <RadzenCategoryAxis Visible="false" Step="200" Min="@_priceMin" Max="@_priceMax"  />
+            <RadzenChartTooltipOptions Visible="false" />
+        </RadzenChart>
+    </div>
+    <RadzenSlider @bind-Value="@_sliderValues" Step="10" Min="@_priceMin" Max="@_priceMax" Range="true" TValue="IEnumerable<int>" Change="@((arg) => OnSliderChanged(arg))" MouseLeave="@(() => OnSliderMouseLeave())" />
+    <div class="price-row">
+        <RadzenLabel Text="@($"{_currency?.Symbol}{PriceValue?.Minimum ?? (int)_priceMin}")"></RadzenLabel>
+        <RadzenLabel Text="@($"{_currency?.Symbol}{PriceValue?.Maximum ?? (int)_priceMax}+")"></RadzenLabel>
+    </div>
+</div>

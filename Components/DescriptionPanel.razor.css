@@ -1,0 +1,31 @@
+﻿.description-section {
+    height: 9.5rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    align-items: flex-start;
+}
+
+.description-section ::deep  ul{
+    margin-left: 2em;
+}
+
+.description-section ::deep  li{
+    list-style-type: disc;
+}
+
+.description-section > div:first-of-type {
+    height: 100%;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.description-section.expand > p:first-of-type {
+    -webkit-line-clamp: unset;
+}
+
+.description-section > p:first-of-type ::deep > p {
+    margin-bottom: 1rem;
+}

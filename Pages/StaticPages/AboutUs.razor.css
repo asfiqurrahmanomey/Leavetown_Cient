@@ -1,0 +1,13 @@
+﻿
+.banner-image {
+    width: 100%;
+    position: relative;
+}
+
+.banner-image > ::deep img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    min-height: 15rem;
+    max-height: 37rem;
+}

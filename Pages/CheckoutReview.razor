@@ -1,0 +1,43 @@
+﻿@page "/checkout"
+@page "/{Culture}/checkout"
+
+@using Leavetown.Client.Components.Inline;
+@using Leavetown.Client.Components
+@using Leavetown.Client.Components.Filters
+@using Leavetown.Client.Components.Forms
+@using Leavetown.Client.Constants
+@using Leavetown.Shared.Constants;
+
+<PageTitle>@(_listing?.SeoPageTitle ?? "Loading...")</PageTitle>
+<UriParser @ref="@_uriParser" Culture="@Culture" />
+<div class="co-page">
+    <Header />
+    <div class="co-container">
+        <FormSteps ActiveIndex="1" Items="@_checkoutStepItems" />
+        <div class="co-form-content">
+            <RadzenCard class="co-form-card">
+                <div class="co-form-title">
+                    <h1>@ResourcesShared.ReviewYourStay</h1>
+                    <span>@ResourcesShared.PleaseConfirmYourDetails</span>
+                </div>
+                @if(!RenderState.IsPrerender && _booking != null) 
+                {
+                    <div class="co-form-details">
+                        <span class="co-nights-text">@String.Format(ResourcesShared.NumberOfNightsInLocation, new object[] { _booking.Days, _listing?.CityName ?? "" })</span>
+                        <div class="co-stay-date-container">
+                            <CheckInOutInfo Date="@_booking.CheckIn" Time="@_listing?.CheckInTime" IsCheckIn="true" />
+                            <CheckInOutInfo Date="@_booking.CheckOut" Time="@_listing?.CheckOutTime" IsCheckIn="false" />
+                        </div>
+                        <a href="@($"{Culture}/accommodation/{_booking.ListingId}{_booking.Query}")"><RadzenIcon Icon="arrow_back" />@ResourcesShared.GoBackToChangeYourDates</a>
+                        <CancellationPolicyTimeline Checkin="@_booking.CheckIn" Checkout="_booking.CheckOut" PolicyCode="_listing?.CancellationPolicyCode ?? CancellationPolicyCode.NoRefund" />
+                    </div>
+                }
+                <div class="nav-row">
+                    <div></div>
+                    <RadzenButton ButtonStyle="ButtonStyle.Primary" Click=@(() => NavigationManager.NavigateTo($"{Culture}/checkout/info{_booking!.Query}"))>@ResourcesShared.Continue</RadzenButton>
+                </div>
+            </RadzenCard>
+            <CheckoutPanel Booking="@_booking" Listing="@_listing" Quote="@_quote" />
+        </div>
+    </div>
+</div>

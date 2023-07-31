@@ -1,0 +1,24 @@
+﻿content {
+    margin: 5rem auto;
+    padding: 1rem;
+    display: block;
+    max-width: 30rem;
+}
+
+h1 {
+    font-size: 7.5rem;
+    line-height: 8rem;
+}
+
+a {
+    background: var(--colors-primary-500);
+    color: var(--white);
+    display: inline-block;
+    padding: 0.6rem;
+    border-radius: 9px;
+    font-weight: 600;
+}
+
+    a:hover {
+        text-decoration: none;
+    }

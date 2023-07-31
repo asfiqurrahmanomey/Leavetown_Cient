@@ -1,0 +1,88 @@
+﻿.bw-container {
+    box-shadow: var(--shadows-md);
+    position: relative;
+}
+.bw-container > div:first-child {
+    padding: 0.5rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+.bw-container > .bw-heading {
+    display:flex;
+    justify-content: space-between;
+}
+button.bw-close-booking-overlay {
+    width: min-content !important;
+}
+
+.bw-content {
+    margin: 1rem;
+}
+
+    .bw-content > ::deep * {
+        width: 100%;
+        font-weight: 500;
+    }
+    .bw-content > ::deep *:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+
+    .bw-content > .popover-label {
+        display:block;
+        margin-bottom: 0.5rem;
+    }
+
+.spinner-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+    .spinner-container > ::deep div {
+        top: unset;
+        left: unset;
+    }
+.bw-content > ::deep *:last-child {
+    display: none;
+}
+
+.overlay {
+    border-radius: 0.5rem 0.5rem 0 0;
+    position: absolute;
+    display: none;
+    width: 100%; 
+    height: 100%; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); 
+    z-index: 2; 
+}
+.overlay.display{
+    display: block;
+}
+
+/* Mobile */
+@media only screen and (max-width: 48em) {
+    .bw-container {
+        height:100%;
+    }
+    .bw-container > .bw-content {
+        position: relative;
+        height: calc(100vh - 2.5rem);
+    }
+    .bw-container > div:first-child {
+        border-radius: unset;
+    }
+    .bw-content > ::deep *:last-child {
+        display: unset;
+        position: absolute;
+        bottom: 2rem;
+        left: 0rem;
+    }
+}

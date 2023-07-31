@@ -1,0 +1,100 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+  </PropertyGroup>
+    
+  <ItemGroup>
+    <Compile Remove="Models\Contracts\**" />
+    <Compile Remove="Resources\**" />
+    <Compile Remove="whitelabel-resources\florenceSayulita\**" />
+    <Compile Remove="whitelabel-resources\leavetown\**" />
+    <Compile Remove="wwwroot\tempdata\**" />
+    <Content Remove="Models\Contracts\**" />
+    <Content Remove="Resources\**" />
+    <Content Remove="whitelabel-resources\florenceSayulita\**" />
+    <Content Remove="whitelabel-resources\leavetown\**" />
+    <Content Remove="wwwroot\tempdata\**" />
+    <EmbeddedResource Remove="Models\Contracts\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <EmbeddedResource Remove="whitelabel-resources\florenceSayulita\**" />
+    <EmbeddedResource Remove="whitelabel-resources\leavetown\**" />
+    <EmbeddedResource Remove="wwwroot\tempdata\**" />
+    <None Remove="Models\Contracts\**" />
+    <None Remove="Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="whitelabel-resources\florenceSayulita\**" />
+    <None Remove="whitelabel-resources\leavetown\**" />
+    <None Remove="wwwroot\tempdata\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\bootstrap\bootstrap.min.css.map" />
+    <None Include="wwwroot\css\open-iconic\FONT-LICENSE" />
+    <None Include="wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
+    <None Include="wwwroot\css\open-iconic\ICON-LICENSE" />
+    <None Include="wwwroot\css\open-iconic\README.md" />
+    <None Include="wwwroot\css\whitelabel\colors.css" />
+    <None Include="wwwroot\css\whitelabel\component-style-overrides.css" />
+    <None Include="wwwroot\css\whitelabel\fonts.css" />
+    <None Include="wwwroot\images\whitelabel\corp_logo.svg" />
+    <None Include="wwwroot\images\whitelabel\corp_logo_inverse.svg" />
+    <None Include="wwwroot\images\whitelabel\hero-aboutUs.jpg" />
+    <None Include="wwwroot\images\whitelabel\hero-contactUs.jpg" />
+    <None Include="wwwroot\images\whitelabel\hero-homePage.jpg" />
+    <None Include="wwwroot\images\whitelabel\hero-listWithUs.jpg" />
+    <None Include="wwwroot\images\whitelabel\icon-BestPriceGuarenteed.svg" />
+    <None Include="wwwroot\images\whitelabel\icon-LiveGuestSupport.svg" />
+    <None Include="wwwroot\images\whitelabel\icon-StayLongerAndSave.svg" />
+    <None Include="wwwroot\images\whitelabel\icon_footer.svg" />
+    <None Include="wwwroot\images\whitelabel\light-favicon-32x32.png" />
+    <None Include="wwwroot\images\whitelabel\mail_icon.svg" />
+    <None Include="wwwroot\images\whitelabel\phone_icon.svg" />
+    <None Include="wwwroot\images\whitelabel\quote_big_icon.svg" />
+    <None Include="wwwroot\images\whitelabel\quote_small_icon.svg" />
+    <None Include="wwwroot\images\whitelabel\socialMedia\icon_facebook.svg" />
+    <None Include="wwwroot\images\whitelabel\socialMedia\icon_instagram.svg" />
+    <None Include="wwwroot\images\whitelabel\socialMedia\icon_linkedin.svg" />
+    <None Include="wwwroot\images\whitelabel\socialMedia\icon_pinterest.svg" />
+    <None Include="wwwroot\images\whitelabel\socialMedia\icon_twitter.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazor.GoogleTagManager" Version="1.1.1" />
+    <PackageReference Include="BlazorDateRangePicker" Version="4.3.0" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+    <PackageReference Include="Markdig" Version="0.31.0" />
+    <PackageReference Include="Hez2010.BlazorRouter" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.DataAnnotations.Validation" Version="3.2.0-rc1.20223.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.5" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.5" />
+    <PackageReference Include="NETCore.Encrypt" Version="2.1.1" />
+    <PackageReference Include="Nito.AsyncEx.Tasks" Version="5.1.2" />
+    <PackageReference Include="Radzen.Blazor" Version="4.11.1" />
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Stripe.net" Version="41.16.0" />
+    <PackageReference Include="SvgNet" Version="3.3.3" />
+    <PackageReference Include="Toolbelt.Blazor.I18nText" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Leavetown.Shared\Leavetown.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\data\countries.en.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>

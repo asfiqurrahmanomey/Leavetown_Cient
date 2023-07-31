@@ -1,0 +1,22 @@
+﻿@using Leavetown.Client.Constants
+@using Leavetown.Shared.Models
+@using System.Globalization
+
+@{
+    string FormatCurrency(CurrencyModel currency) => $"{currency.Code.ToUpper()} ({currency?.Symbol})";
+}
+<div>
+    @if (_selectedCurrency != null)
+    {
+        <Popover @ref="@_popover" @attributes="@CapturedAttributes" Id="@Id" Placeholder="@FormatCurrency(_selectedCurrency)" FullScreenOnMobile="false">
+            <ul>
+                @foreach (CurrencyModel currency in _currencies)
+                {
+                    <li onclick="@(() => SelectCurrency(currency))">
+                        @FormatCurrency(currency)
+                    </li>
+                }
+            </ul>
+        </Popover>
+    }
+</div>

@@ -1,0 +1,11 @@
+﻿@using Leavetown.Client.Models
+
+<div class="sd-container">
+    <label for="sorting-dropdown">@ResourcesShared.SortBy</label>
+    <RadzenDropDown id="sorting-dropdown" @bind-Value="@_selectedSortingOption" 
+        Change="@(() => OnSortSelectionChanged())" 
+        Data="@_sortingDropDownData" 
+        ValueProperty="Value"
+        TextProperty="Key">
+    </RadzenDropDown>
+</div>

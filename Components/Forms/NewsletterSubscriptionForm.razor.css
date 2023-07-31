@@ -1,0 +1,46 @@
+﻿.newsletter-form-container > ::deep form {
+    width: 100%;
+}
+
+    .newsletter-form-container > ::deep form > div {
+        padding-bottom: var(--space-4);
+    }
+
+        .newsletter-form-container > ::deep form > div > input {
+            width: 100%;
+            font-size: large;
+            height: 3rem;
+        }
+
+.newsletter-message {
+    display: flex;
+    flex-direction: row;
+    padding: var(--space-4);
+    margin-bottom: var(--space-4);
+    align-items: center;
+}
+
+    .newsletter-message > ::deep i {
+        margin-right: var(--space-2);
+    }
+
+.error.newsletter-message {
+    color: var(--colors-red-500);
+    background-color: var(--colors-red-200);
+}
+
+.success.newsletter-message {
+    color: var(--colors-green-500);
+    background-color: var(--colors-green-200);
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 62em) {
+    .newsletter-form-container > ::deep form > button {
+        width: auto;
+    }
+
+    .newsletter-form-container {
+        width: 75%;
+    }
+}

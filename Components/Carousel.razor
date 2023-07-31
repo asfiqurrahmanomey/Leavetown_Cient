@@ -1,0 +1,23 @@
+﻿<div @attributes="@CapturedAttributes" id="@_carouselName" class="carousel slide" data-bs-wrap="true" data-interval="false" data-bs-pause="true">
+	<div class="carousel-inner carousel-height">
+		@for (int i = 0; i < Images.Count(); i++) {
+			<div class="carousel-item item-container carousel-item-container @(i == 0 ? "active" : "")">
+				<!-- Add the loading="lazy" to all the images except the first one -->
+				@if (i == 0)
+				{
+					<img src="@($"{Images[i].Url}?tr=w-400,h-265,q-50,pr-true")" alt="@Images[i].Caption" class="carousel-item-image image">
+				} else {
+					<img src="@($"{Images[i].Url}?tr=w-400,h-265,q-50,pr-true")" alt="@Images[i].Caption" class="carousel-item-image image" loading="lazy">
+				}
+			</div>
+		}
+	</div>
+	<button class="carousel-control-prev" type="button" data-bs-target="@($"#{_carouselName}")" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="@($"#{_carouselName}")" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</button>
+</div>

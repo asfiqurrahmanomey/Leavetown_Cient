@@ -1,0 +1,66 @@
+﻿@using Leavetown.Client.Components.Inline
+
+@*TODO: Refactor IsResponsive to be controlled through css from the parent instead of parameterized*@
+
+@if(Listing == null || Culture == null) 
+{
+    <div class="card-container-outer @(IsResponsive ? "responsive" : "")">
+        <RadzenCard class="@(IsResponsive ? "responsive" : "")">
+            <div class="card-container-inner @(IsResponsive ? "responsive" : "")">
+                <div class="carousel-container @(IsResponsive ? "responsive" : "")"></div>
+                <div class="listing-card-details @(IsResponsive ? "responsive" : "")">
+                    <section class="badge-row @(IsResponsive ? "responsive" : "")"></section>
+                    <section class="property-section @(IsResponsive ? "responsive" : "")"></section>
+                    <section class="price-section @(IsResponsive ? "responsive" : "")"></section>
+                </div>
+            </div>
+        </RadzenCard>
+    </div>
+}
+else
+{
+    <div class="card-container-outer @(IsResponsive ? "responsive" : "")">
+        <RadzenCard class="@(IsResponsive ? "responsive" : "")">
+            <div class="card-container-inner @(IsResponsive ? "responsive" : "")">
+                <div class="carousel-container @(IsResponsive ? "responsive" : "")">
+                    <a target="_blank" id="@($"listing-card-{_listing?.Id}")" href="@($"{Culture}/accommodation/{_listing?.Id}")" >
+                        <Carousel class="@(IsResponsive ? "responsive" : "")" Id="@($"{_listing?.Id}-{Tag}")" Images="@(_listing?.Photos?.ToList() ?? new())"></Carousel>
+                    </a>
+                </div>
+                <div class="listing-card-details @(IsResponsive ? "responsive" : "")">
+                    <div id="badges" class="badge-row @(IsResponsive ? "responsive" : "")">
+                        <RadzenBadge BadgeStyle="BadgeStyle.Light" 
+                            Text=@(_listing?.NumberOfGuests > 1 ? 
+                                    string.Format(ResourcesShared.GuestPlural, _listing?.NumberOfGuests).ToUpper() : 
+                                    ResourcesShared.GuestSingular.ToUpper())>
+                        </RadzenBadge>
+                        <RadzenBadge BadgeStyle="BadgeStyle.Light" Text="@GetBedroomsRepresentation()"></RadzenBadge>
+                        <RadzenBadge BadgeStyle="BadgeStyle.Light" 
+                            Text=@(_listing?.NumberOfBathrooms > 1 ? 
+                                    string.Format(ResourcesShared.BathroomPlural, _listing?.NumberOfBathrooms.ToString(_listing?.NumberOfBathrooms % 1 == 0 ? "0" : "0.0")).ToString().ToUpper() : 
+                                    ResourcesShared.BathroomSingular.ToUpper())>
+                        </RadzenBadge>
+                    </div>
+                    <div class="property-section @(IsResponsive ? "responsive" : "")">
+                        <h5 class="property-name">@(_listing?.SalesChannelHeadline)</h5>
+                        <span class="location">
+                            <RadzenIcon class="location-icon" Icon="location_on"/>
+                            <p class="location-label"><span> @_listing?.CityName</span>, <span>@(_listing?.Country?.Code ?? "")</span></p>
+                        </span>
+                    </div>
+                    <div class="price-section @(IsResponsive ? "responsive" : "")">
+                        <label @ref="_priceElement" class="price-label" @onmouseover="@(args => ShowTooltip(_priceElement))">
+                            <PriceInfo @ref="_priceInfo"
+                                IsAverage="@(!_listingCardViewModel?.IsDataProvidedForBooking ?? false)" 
+                                Label="@_listingCardViewModel?.PriceLabel">
+                            </PriceInfo><RadzenIcon Icon="info" Style="font-size:medium;" />
+                        </label>
+                         <a target="_blank" class="view-button" id="@($"listing-card-{_listing?.Id}")" href="@($"{Culture}/accommodation/{_listing?.Id}")" >
+                            <button type="button" class="rz-button rz-button-sm rz-primary">@ResourcesShared.View</button>
+                         </a>
+                    </div>
+                </div>
+            </div>
+        </RadzenCard>
+    </div>
+}

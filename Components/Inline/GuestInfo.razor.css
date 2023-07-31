@@ -1,0 +1,8 @@
+﻿span {
+    display: flex;
+    align-items: center;
+}
+
+    span > ::deep i {
+        margin-right: 0.25rem;
+    }

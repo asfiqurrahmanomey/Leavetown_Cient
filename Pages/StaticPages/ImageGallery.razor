@@ -1,0 +1,15 @@
+﻿@inherits BaseStaticGalleryPage
+@page "/gallery"
+@page "/{Culture}/gallery"
+
+
+<div class="events-page">
+    <Header />
+    <div class="gallery-page-content-container">
+        <div class="gallery-page-content">
+            @((MarkupString)_pageData?.Content)
+
+        </div>   
+    </div>
+    <Footer />
+</div>

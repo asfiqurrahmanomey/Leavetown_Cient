@@ -1,0 +1,35 @@
+﻿@typeparam TItem
+
+<div class="drilldownmenu">
+    <div class="dd-title-bar">
+        @if(SelectedLevel > 1)
+        {
+            <button class="dd-btn dd-hover" onclick="@(() => SetLevel(SelectedLevel - 1, _index))">
+                <RadzenIcon Icon="arrow_back"></RadzenIcon>
+            </button>
+        }
+        <p class="dd-title @(SelectedLevel != 1 ? "dd-border-left" : "")">@(!string.IsNullOrEmpty(_expandedItem) ? _expandedItem : Title)</p>
+    </div>
+    <div class="dd-menu-list">
+        @foreach (var item in _itemsOnLevel) {
+            <div class="dd-menu-item-container">
+                <div class="dd-menu-item dd-hover @(SelectedLevel == 3 ? "dd-full-width-button" : "dd-border-right") @(item.Value ? "active" : "")" @onclick="@(() => SetSelection(item.Key))">
+                    <span class="dd-item-text">@item.Key</span>
+                </div>
+                @if((SelectedLevel == 1 && Item2 != null) ||
+                    (SelectedLevel == 2 && Item3 != null))
+                {
+                    void SetNextLevel()
+                    {
+                        TItem indexItem = Items.Where(x => item.Key == GetStringValueFromItem(x, GetItem())).First();
+                        SetLevel(SelectedLevel + 1, Items.IndexOf(indexItem), item.Key);
+                    }
+
+                    <button class="dd-btn dd-hover" onclick="@(() => SetNextLevel())">
+                        <RadzenIcon Icon="arrow_forward"></RadzenIcon>
+                    </button>
+                }
+            </div>
+        }
+    </div>
+</div>

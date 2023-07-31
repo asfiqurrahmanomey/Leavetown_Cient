@@ -1,0 +1,139 @@
+﻿@page "/accommodations"
+@page "/{Culture}/accommodations"
+@using Leavetown.Client.Components
+@using Leavetown.Client.Components.Filters
+@using Leavetown.Client.Components.Inline
+@using Leavetown.Client.Models.ViewModels
+
+@{
+    string pageTitle = !string.IsNullOrEmpty(_locationValue.Name) ? 
+        $"{_locationValue.Name} {ResourcesMicroSiteSpecific.VacationRentalsTitleLocation}" :
+        ResourcesMicroSiteSpecific.VacationRentalsTitleAll;
+}
+
+<PageTitle>@pageTitle</PageTitle>
+<HeadContent>
+    <meta name="description" content="@ResourcesMicroSiteSpecific.WebsiteDescription">
+</HeadContent>
+<div class="@(_mapVisible? "destination-page":"destination-page-nomap")">
+    <Header />
+    <div class="content-details">
+        @if (!_isLoading)
+        {
+            <div class="filters-container">
+                <LocationFilter @bind-LocationValue="@_locationValue"></LocationFilter>
+                <AvailabilityFilter Changed="@(x => _availabilityValue = x)"></AvailabilityFilter>
+                <!-- Pet Max set to 3 to limit user filtering to industry standard max for number of pets -->
+                <GuestFilter GuestChanged="@(x => _guestValue = x)" PetChanged="@(x => _petValue = x)" PetMax="3"></GuestFilter>
+                <PriceFilterPopover></PriceFilterPopover>
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary" class="more-filters"  Click="@ShowMoreFilters">
+                     <span>@ResourcesShared.MoreFilters</span>
+                    <RadzenIcon class="dd-caret" Icon="expand_more"></RadzenIcon>
+                </RadzenButton>
+            </div>
+        }
+        <div class="property-list">
+            @if (!_isLoading)
+            {
+                <h1 class="list-title">
+                    <span class="location-name">@(_locationValue.Name) </span>
+                    @(!string.IsNullOrEmpty(_locationValue.Name) ? ResourcesMicroSiteSpecific.VacationRentalsTitleLocation : ResourcesMicroSiteSpecific.VacationRentalsTitleAll)
+                </h1>
+            }
+            <div class="filter-badge-container">
+                @foreach(var filter in _appliedFilters)
+                {
+                    if (filter.Value != null && !filter.Value.HasValue) continue;
+                    
+                    <div>
+                        <span>@String.Format(ResourcesShared.FilterBadge, new[] { FilterRepresentationHelper.GetFilterTitle(filter.Value?.Type, ResourcesShared), FilterRepresentationHelper.GetFilterRepresentation(filter.Value, ResourcesShared) }!)</span>
+                        <button onclick="@(() => ClearFilter(filter.Value))">
+                            <RadzenIcon Icon="close" />
+                        </button>
+                    </div>
+                }
+            </div>
+            <div class="sorting-row">
+                <span>@String.Format(ResourcesShared.FoundListingCountResults, _listingCount)</span>
+                <div>
+                    <SortingDropDown />
+                </div>
+            </div>
+            <div class="list">
+                @if(_isUpdating)
+                {
+                    @*Card Skeleton for Loading*@
+                    for(int i = 0; i < _skipIncrement; i++)
+                    {
+                        <ListingCard IsResponsive="true" />
+                    }
+                }
+                else
+                {
+                    @foreach(var listing in _filteredListings)
+                    {
+                        ListingCardViewModel listingCardViewModel = new ListingCardViewModel
+                        {
+                            Listing = listing,
+                            PriceLabel = _priceLabelDictionary[listing.Id],
+                            Availability = _availabilityValue,
+                            Guests = _guestValue,
+                            Pets = _petValue
+                        };
+                        <ListingCard Tag="list" Listing="listingCardViewModel" IsResponsive="true" />
+                        <HtmlContent hidden="true" id="@($"html-content-{listing.Id}")">
+                            <ListingCard Tag="map" Listing="listingCardViewModel" IsResponsive="false" />
+                        </HtmlContent>
+                    }
+                }
+                <div hidden="@(_numberOfPages == 0)" id="paging" class="paging-container">
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Disabled="@(_skip == 0)" Click="@(() => PrevPageAsync())" Text="@ResourcesShared.Previous" />
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" class="@(_currentPage == 1 ? "active" : "")" Click="@(() => SetPageAsync(1))" Text="1" />
+                    @if (_currentPage - 2 > 1) { 
+                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="@(() => SetPageAsync(_currentPage - (_currentPage + 2 < _numberOfPages ? 2 : 3)))" Text="..." />
+                    }
+                    @if (_currentPage + 2 > _numberOfPages && _currentPage - 2 > 1) { 
+                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="@(() => SetPageAsync(_currentPage - 2))" Text="@($"{_currentPage - 2}")" /> 
+                    }
+                    @if (_currentPage != 1 && _currentPage - 1 != 1) { 
+                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="@(() => SetPageAsync(_currentPage - 1))" Text="@($"{_currentPage - 1}")" />
+                    }
+                    @if (_currentPage != 1 && _currentPage != _numberOfPages) { 
+                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" class="active" Text="@($"{_currentPage}")" />
+                    }
+                    @if (_currentPage != _numberOfPages && _currentPage + 1 != _numberOfPages) { 
+                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="@(() => SetPageAsync(_currentPage + 1))" Text="@($"{_currentPage + 1}")" />
+                    }
+                    @if (_currentPage - 2 < 1 && _currentPage + 2 < _numberOfPages) { 
+                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="@(() => SetPageAsync(_currentPage + 2))" Text="@($"{_currentPage + 2}")" />
+                    }
+                    @if (_currentPage + 2 < _numberOfPages) { 
+                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="@(() => SetPageAsync(_currentPage + (_currentPage - 2 > 1 ? 2 : 3)))" Text="..." />
+                    }
+                    @if (_numberOfPages > 1) {
+                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" class="@(_currentPage == _numberOfPages ? "active" : "")" Click="@(() => SetPageAsync(_numberOfPages))" Text="@($"{_numberOfPages}")" />
+                    }
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Disabled="@(_currentPage == _numberOfPages)" Click="@(() => NextPageAsync())" Text="@ResourcesShared.Next" />
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (Configuration.WhiteLabelSettings.AccommodationsPageShowMap) {
+        <Map @ref="@_map" OnMapViewChanged="@((arg) => OnMapViewChanged(arg))" />
+        <RadzenButton 
+            ButtonStyle="ButtonStyle.Secondary"
+            Icon="@(_mapVisible? "close":"map")"
+            Click="@(() => ToggleMap())"
+            class="@(_mapVisible? "hide-map":"hide-map map-hidden")"
+            Text="@(_mapVisible ? ResourcesShared.MapHide : ResourcesShared.MapShow)" />
+        }
+</div>
+<style>
+        /* this hack bumps the chat button above the Show Map button */
+        /* done this way to stop Blazor from attempting to apply CSS Isolation */
+        /*
+        iframe#front-chat-iframe {
+              bottom: 70px !important;
+        }
+        */
+</style>

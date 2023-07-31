@@ -1,0 +1,90 @@
+﻿.drilldownmenu {
+    min-width: 20rem;
+}
+
+.dd-title-bar {
+    display: flex;
+    flex-direction: row;
+    border-bottom: solid 1px var(--colors-gray-100);
+    align-items: center;
+}
+
+.dd-menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 2.5rem;
+}
+
+.dd-hover:hover {
+    cursor: pointer;
+    background-color: var(--colors-gray-200);
+}
+
+.dd-menu-item.active {
+    background-color: var(--colors-primary-200);
+    font-weight: 600;
+}
+
+.dd-menu-item-container {
+    display: flex;
+    align-items: center;
+}
+
+.dd-item-text {
+    font-weight: 500;
+    margin-left: 1rem;
+    width: 15rem;
+    text-align: left;
+}
+
+.dd-btn {
+    border: unset;
+    display: flex;
+    border-radius: unset;
+    align-items: center;
+    align-self: stretch;
+    color: var(--colors-text);
+}
+
+.dd-title {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.dd-border-left {
+    border-left: solid 1px var(--colors-gray-100);
+}
+
+.dd-border-right {
+    border-right: solid 1px var(--colors-gray-100);
+}
+
+.dd-menu-list {
+    height: 15rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/* Mobile */
+@media only screen and (max-width: 48em) {
+    .drilldownmenu {
+        min-width: unset;
+        display: grid;
+        overflow-y: hidden;
+        grid-template-rows: 1fr 20fr;
+    }
+
+    .dd-menu-list {
+        height: unset;
+    }
+
+    .dd-menu-item {
+        width: 100%;
+    }
+}
+
+.dd-full-width-button {
+    width: 100% !important;
+}

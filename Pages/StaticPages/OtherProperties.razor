@@ -1,0 +1,13 @@
+﻿@inherits BaseStaticGalleryPage
+@page "/other-properties"
+@page "/{Culture}/other-properties"
+
+<PageTitle>@_pageData.Title</PageTitle>
+
+<div class="other-properties-page">
+    <Header />
+    <section class="other-properties-section">
+        @((MarkupString)_pageData?.Content!)
+    </section>
+    <Footer />
+</div>

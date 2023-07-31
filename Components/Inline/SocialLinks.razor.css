@@ -1,0 +1,11 @@
+﻿div {
+    padding-left: 0.5rem;
+}
+
+    div > ::deep i {
+        font-size: 2rem;
+    }
+img.icon-socialmedia {
+    width: 25px;
+    height: 25px;
+}

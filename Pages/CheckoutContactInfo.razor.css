@@ -1,0 +1,80 @@
+﻿::deep .rz-card {
+    margin: 1rem;
+}
+
+::deep .lt-card {
+    margin: 0;
+}
+
+.co-page {
+    width: 100%;
+}
+
+.co-form-title {
+    margin-left: 2rem;
+}
+
+.co-container {
+    max-width: var(--sizes-container-lg);
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    height: fit-content;
+}
+
+.co-form-content {
+    display: flex;
+    flex-direction: column;
+}
+
+::deep .co-panel-content {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    width: auto;
+    height: auto;
+    margin-bottom: 2rem;
+}
+
+::deep .co-form-card {
+    display: flex;
+    width: auto;
+    padding: 0;
+    height: auto;
+    box-shadow: unset;
+    position: relative;
+    padding-bottom: 2.5rem;
+}
+
+    ::deep .co-form-card > div {
+        padding-top: 2rem;
+    }
+
+@media screen and (min-width: 48em) {
+    ::deep .co-form-card {
+        box-shadow: 0 0.375rem 0.875rem 0 rgb(0 0 0 / 6%);
+    }
+}
+
+@media screen and (min-width: 62em) {
+    .co-form-content {
+        flex-direction: row;
+    }
+
+    ::deep .co-form-card {
+        width: 75%;
+    }
+
+    .co-form-title > h1 {
+        font-size: var(--fontSizes-3xl);
+    }
+
+    .co-container {
+        max-width: var(--sizes-container-xl);
+    }
+
+    ::deep .co-panel-content {
+        width: 25%;
+        height: fit-content;
+    }
+}

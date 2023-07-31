@@ -1,0 +1,25 @@
+﻿.counter-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 1rem;
+    font-weight: 600;
+}
+
+.control-container {
+    display: flex;
+    align-items: center;
+}
+
+.control-container > button {
+    background-color: #E5E7EB;
+    margin: 0.5rem;
+    display: flex;
+    padding: 0.5rem;
+}
+
+.control-container > span {
+    width: 2rem;
+    text-align: center;
+}

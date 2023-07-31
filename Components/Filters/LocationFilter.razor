@@ -1,0 +1,16 @@
+﻿@using Leavetown.Shared.Models
+
+<Popover @attributes="@CapturedAttributes" @ref="@_locationPopover" Id="location-popover" class="location-filter-popover"     
+    Placeholder="@(!string.IsNullOrEmpty(LocationValue.Name) ? LocationValue.Name : ResourcesShared.CountryFilterTitle)" 
+    Title="@ResourcesShared.Location" IsCentered=false> 
+    <DrillDownMenu @ref="@_drillDownMenu" 
+        ValueChanged="(() => OnLocationValueChanged())" 
+        Value="@LocationValue.Name" 
+        TItem="DestinationModel" 
+        Items="@_destinations" 
+        Item1="CountryName" 
+        Item2="RegionName" 
+        Item3="DestinationName" 
+        Title=@ResourcesShared.CountryFilterTitle>
+    </DrillDownMenu>
+</Popover>

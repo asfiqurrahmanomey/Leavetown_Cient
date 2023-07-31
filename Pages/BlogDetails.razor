@@ -1,0 +1,29 @@
+﻿@inherits BaseStaticGalleryPage
+@page "/magazine/{BlogUrl}"
+@page "/{Culture}/magazine/{BlogUrl}"
+@using Leavetown.Client.Components
+@using Leavetown.Client.Pages.StaticPages
+
+@if (!string.IsNullOrEmpty(_blogModel.Content)) // This helps keep the scroll at the top when navigating to this page.
+{
+    <PageTitle>@(!string.IsNullOrWhiteSpace(_blogModel.SeoTitle) ? _blogModel.SeoTitle : _blogModel.Title)</PageTitle>
+    <HeadContent>
+        <meta name="description" content="@(!string.IsNullOrWhiteSpace(_blogModel.SeoMetaDescription)? _blogModel.SeoMetaDescription: _blogModel.Abstract)">
+    </HeadContent>
+    <div class="blog-page-content">
+        <Header />
+        <div class="top-blog">
+            <div class="banner-image">
+                <RadzenImage class="blog-image" Path="@_blogModel.HeroImage?.Url" />
+            </div>
+            <div class="top-blog-data-wrapper details-top-blog">
+                <BlogData Blog="_blogModel" Culture="@Culture" ShowButton="false" IsTop="true" />
+            </div>
+        </div>        
+        <div class="blog-body-wrapper">
+            @((MarkupString)_blogModel.Content)
+        </div>        
+        <Footer />
+    </div>
+}
+

@@ -1,0 +1,18 @@
+﻿.sd-container {
+    display: flex;
+    white-space: nowrap;
+}
+
+    div > label {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        padding-right: 1rem;
+        font-weight: 600;
+    }
+
+.sd-container ::deep > div:hover,
+.sd-container ::deep > .rz-dropdown:hover,
+.sd-container ::deep > .rz-dropdown .rz-dropdown-label:hover {
+    cursor: pointer;
+}

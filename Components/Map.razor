@@ -1,0 +1,9 @@
+﻿@using Leavetown.Client.Components.Inline
+
+<div class="map-container">
+    @if (!_isMapInitialized)
+    {
+        <LoadingIndicator />
+    }
+    <div hidden="@(!_isMapInitialized)" id="map"></div>
+</div>

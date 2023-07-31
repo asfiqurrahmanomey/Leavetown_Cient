@@ -1,0 +1,106 @@
+﻿@using Leavetown.Client.Components.Inline
+@using Leavetown.Client.Models.Projections
+@using Leavetown.Client.Models.ViewModels;
+@using Leavetown.Client.Utilities.Extensions;
+@using Leavetown.Shared.Models
+@*Reference: https://stripe.com/docs/payments/quickstart*@
+
+<section>
+    <!-- Display a payment form -->
+    <form class="lt-form" id="payment-form" novalidate="@_disposed">
+        <div class="co-billing-address-content">
+            <div class="co-billing-address-button-row">
+                @ResourcesShared.BillingAddress
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary"
+                              Click="@(() => DisplayBillingAddressForm())"
+                              Text="@(_billingAddressFormDisplayed ? ResourcesShared.UseSameAddress : ResourcesShared.UseDifferentBillingAddress)">
+                </RadzenButton>
+            </div>
+        </div>
+        @if (_billingAddressFormDisplayed)
+        {
+            <RadzenTemplateForm id="@_billingAddressFormId" TItem="BookingViewModel" Data="@Data">
+                <ObjectGraphDataAnnotationsValidator />
+                <ValidationSummary />
+                <section class="form-grid">
+                    <div class="row-1">
+                        <RadzenLabel Component="addressLine1TextBox" Text="@ResourcesShared.AddressLine1" />
+                        <RadzenTextBox id="addressLine1TextBox" @bind-Value="@Data.BillingAddressDetails.Address1" />
+                        <ValidationMessage For="@(() => Data.BillingAddressDetails.Address1)" />
+                    </div>
+                    <div class="row-1">
+                        <RadzenLabel Component="addressLine2TextBox" Text="@ResourcesShared.AddressLine2" />
+                        <RadzenTextBox id="addressLine2TextBox" @bind-Value="@Data.BillingAddressDetails.Address2" />
+                        <ValidationMessage For="@(() => Data.BillingAddressDetails.Address2)" />
+                    </div>
+                    <div class="row-2">
+                        <RadzenLabel Component="cityTextBox" Text="@ResourcesShared.TownCity" />
+                        <RadzenTextBox id="cityTextBox" @bind-Value="@Data.BillingAddressDetails.City" />
+                        <ValidationMessage For="@(() => Data.BillingAddressDetails.City)" />
+                    </div>
+                    <div class="row-2">
+                        <RadzenLabel Component="provinceStateTextBox" Text="@ResourcesShared.StateCounty" />
+                        <RadzenTextBox id="provinceStateTextBox" @bind-Value="@Data.BillingAddressDetails.ProvinceState" />
+                        <ValidationMessage For="@(() => Data.BillingAddressDetails.ProvinceState)" />
+                    </div>
+                    <div class="row-3">
+                        <RadzenLabel Component="postalCodeTextBox" Text="@ResourcesShared.ZipPostalCode" />
+                        <RadzenTextBox id="postalCodeTextBox" @bind-Value="@Data.BillingAddressDetails.PostalCode" />
+                        <ValidationMessage For="@(() => Data.BillingAddressDetails.PostalCode)" />
+                    </div>
+                    <div class="row-3">
+                        <RadzenLabel Component="countryDropDown" Text="@ResourcesShared.Country" />
+                        <RadzenDropDown id="countryDropDown" @bind-Value="@Data.BillingAddressDetails.Country" Data="@_ddlCountriesData" TextProperty="@nameof(CountryModel.Name)" />
+                        <ValidationMessage For="@(() => Data.BillingAddressDetails.Country.Code)" />
+                    </div>
+                </section>
+            </RadzenTemplateForm>
+        }
+        else
+        {
+            @if(!RenderState.IsPrerender)
+            {
+                <span>@($"{Data.ContactAddressDetails.Address1}, {Data.ContactAddressDetails.City}, {Data.ContactAddressDetails.PostalCode}, {Data.ContactAddressDetails.Country?.Code}")</span>
+            }
+        }
+        <h3>@Title</h3>
+        <div id="card-error-container" class="error hidden">
+            <RadzenIcon Icon="error" />
+            <p id="card-error" role="alert"></p>
+        </div>
+        <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+        <div class="terms-and-conditions-check">
+            <RadzenCheckBox TValue="bool" Change="@OnTermAndConditionsCheckboxChecked" />
+            <div>
+                @ResourcesShared.TermsAndConditionsCheckText&nbsp;
+                <NavLink href="@($"{Culture}/Terms-and-Conditions")">
+                    @ResourcesShared.TermsAndConditions
+                </NavLink>
+                &nbsp;&&nbsp;
+                <NavLink href="@($"{Culture}/privacy")">
+                    @ResourcesShared.PrivacyPolicy
+                </NavLink>
+            </div>
+        </div>
+        <div class="button-row">
+            <RadzenButton class="co-payment-previous-btn" ButtonStyle="ButtonStyle.Secondary" Click=@NavigateToReturnUrl>@ResourcesShared.Previous</RadzenButton>
+            <div class="co-property-accepts-payment-container">
+                <div class="submit-button-container">
+                    @if (_bookingPending)
+                    {
+                        <LoadingIndicator />
+                    }
+                    <button id="submit" @onclick="@OnSubmitButtonClicked">
+                        <span id="button-text">@ResourcesShared.ConfirmAndPay &mdash; @($"{_bookingCurrency?.Symbol!}{Quote?.PaymentAmount:##,#.00}")</span>
+                    </button>
+                </div>
+                <span class="co-property-accepts-payment-line">@string.Format(ResourcesShared.PropertyAcceptsPayments, new object[] {_bookingCurrency?.Code!, $"{_bookingCurrency?.Symbol}{Quote?.PaymentAmount:##,#.00}" })</span>
+            </div>
+        </div>
+        @if(_errorMessageCodes != null && _errorMessageCodes.Any()) {
+            <div class="co-booking-error-container">
+                <BookingErrors ErrorMessageCodes="@_errorMessageCodes" />
+            </div>
+        }
+    </form>
+</section>

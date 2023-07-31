@@ -1,0 +1,37 @@
+﻿@page "/checkout/{BookingId}/confirmed"
+@page "/{Culture}/checkout/{BookingId}/confirmed"
+@using Leavetown.Client.Components
+@using Leavetown.Client.Components.Inline
+
+<PageTitle>Booking Confirmed</PageTitle>
+<UriParser @ref="@_uriParser" Culture="@Culture" />
+<div class="cs-page">
+    <Header />
+    <div class="cs-content">
+        @if (_booking != null)
+        {
+            <div class="cs-congratulations-section">
+                <h1>@ResourcesShared.BookingCongratulations</h1>
+                <span>@ResourcesShared.PaymentHasBeenTaken</span>
+            </div>
+            <div class="cs-confirmation-details">
+                <span>@ResourcesShared.ThankYouForBookingWithUs</span>
+                <RadzenCard>
+                    <h4>@string.Format(ResourcesShared.ReservationRef, BookingId)</h4>
+                    <span>@string.Format(ResourcesShared.YourParty, _partyDetails)</span>
+                    <div class="cs-info-row">
+                        <LocationInfo ImageUrl="@_listing?.HeroImage?.Url" PropertyName="@_listing.SalesChannelHeadline" CityName="@_listing.CityName" />
+                        <CheckInOutInfo Date="@_booking.CheckIn" Time="@_listing.CheckInTime" IsCheckIn="true" />
+                        <CheckInOutInfo Date="@_booking.CheckOut" Time="@_listing.CheckOutTime" IsCheckIn="false" />
+                    </div>
+                </RadzenCard>
+                @if(_booking != null && _quote != null) {
+                    <BookingPaymentGrid Booking="@_booking" Listing="@_listing" Quote="@_quote" />
+                }
+            </div>
+        }
+        <div class="cs-button-row">
+            <RadzenButton ButtonStyle="ButtonStyle.Primary" Click="@OnBackToSearchButtonClicked"><RadzenIcon Icon="arrow_back" />@ResourcesShared.BackToSearch</RadzenButton>
+        </div>
+    </div>
+</div>

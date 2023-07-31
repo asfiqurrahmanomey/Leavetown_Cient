@@ -1,0 +1,223 @@
+﻿@page "/"
+@page "/{Culture}"
+@inherits BasePage
+@using Leavetown.Client.Components
+@using Leavetown.Client.Components.Filters
+@using Leavetown.Client.Components.Forms
+@using Leavetown.Client.Models.ViewModels
+@using Leavetown.Shared.Models.ViewModels
+
+<PageTitle>@ResourcesMicroSiteSpecific.WebsiteTitle</PageTitle>
+<HeadContent>
+    <meta name="description" content="@ResourcesMicroSiteSpecific.WebsiteDescription">
+</HeadContent>
+
+<div class="home-page">
+    <Header />
+    <div class="banner-image">
+        @if (!string.IsNullOrEmpty(Configuration.WhiteLabelSettings.HomePageHeroVideoUrl))
+        {
+            <video id="heroVideo" autoplay muted preload="auto" controls poster="/images/whitelabel/hero-homePage.jpg">
+                <source src="@Configuration.WhiteLabelSettings.HomePageHeroVideoUrl" type="video/mp4">
+            </video>
+        }
+        else
+        {
+            @if (!string.IsNullOrEmpty(ResourcesMicroSiteSpecific.HomePageHeroImageLinkText))
+            {
+                <RadzenButton class="hero-homepage-link" ButtonStyle="ButtonStyle.Light" Text="@ResourcesMicroSiteSpecific.HomePageHeroImageLinkText" Click="@(() => NavigationManager.NavigateTo($"{Culture}/accommodation/14400"))" />
+            }
+            <RadzenImage id="heroImage" Path="/images/whitelabel/hero-homePage.jpg" />
+        }
+    </div>
+    <div class="home-filter-container">
+        <div class="home-filter-details">
+            <h1>@ResourcesMicroSiteSpecific.HomePageFilterTitle</h1>
+            <div>
+                <LocationFilter />
+                <AvailabilityFilter DisablePreviousDates="true" LinkedCalendars="true" />
+                <!-- Pet Max set to 3 to limit user filtering to industry standard max for number of pets -->
+                <GuestFilter PetMax="3" />
+                <RadzenButton class="apply-filter" ButtonStyle="ButtonStyle.Primary" Text="@ResourcesShared.Search" Click="@OnSearchClick" />
+            </div>
+        </div>
+    </div>
+    @if (Configuration.WhiteLabelSettings.HomePageShowExperienceSection)
+    {
+        <div class="home-nav-section-container">
+            <section class="home-nav-section">
+                <div>
+                    <div class="getaway-spacer">
+                        <RadzenImage Path="/images/whitelabel/find-a-getaway.webp" />
+                    </div>
+                    <h2>@ResourcesMicroSiteSpecific.FindThePerfectLocalGetawayInSeconds</h2>
+                </div>
+                <div>
+                    <p>@ResourcesMicroSiteSpecific.GetAwayFromHomeOffice</p>
+                    <div class="home-nav-button-list">
+                        @if (!string.IsNullOrEmpty(ResourcesMicroSiteSpecific.ExperienceDefault))
+                        {
+                            <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="@ResourcesMicroSiteSpecific.ExperienceDefault" Click="@(() => NavigationManager.NavigateTo($"{Culture}/accommodations"))" />
+                        }
+                        else
+                        {
+                            <!-- TODO: Refactor links when countries table in OpenSearch database contains country names -->
+                            <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="@ResourcesMicroSiteSpecific.ExperienceCanada" Click="@(() => NavigationManager.NavigateTo($"{Culture}/accommodations?location=Canada"))" />
+                            <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="@ResourcesMicroSiteSpecific.ExperienceAmerica" Click="@(() => NavigationManager.NavigateTo($"{Culture}/accommodations?location=United States"))" />
+                            <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="@ResourcesMicroSiteSpecific.ExperienceUk" Click="@(() => NavigationManager.NavigateTo($"{Culture}/accommodations?location=United Kingdom"))" />
+                            <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="@ResourcesMicroSiteSpecific.ExperienceFrance" Click="@(() => NavigationManager.NavigateTo($"{Culture}/accommodations?location=France"))" />
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+    }
+    <div class="home-guarantee-section-container">
+        <section class="home-guarantee-section">
+            <h2>@ResourcesMicroSiteSpecific.LeaveTownTheWayYouWantTo</h2>
+            <div class="home-guarantee-items">
+                <div>
+                    <img src=" /images/whitelabel/icon-LiveGuestSupport.svg" class="home-guarantee-icon" />
+                    <h4>@ResourcesMicroSiteSpecific.LiveGuestSupport</h4>
+                    <p>@ResourcesMicroSiteSpecific.LiveGuestSupportDescription</p>
+                </div>
+                <div>
+                    <img src=" /images/whitelabel/icon-BestPriceGuarenteed.svg" class="home-guarantee-icon" />
+                    <h4>@ResourcesMicroSiteSpecific.BestPriceGuaranteed</h4>
+                    <p>@ResourcesMicroSiteSpecific.BestPriceGuaranteedDescription</p>
+                </div>
+                <div>
+                    <img src=" /images/whitelabel/icon-StayLongerAndSave.svg" class="home-guarantee-icon" />
+                    <h4>@ResourcesMicroSiteSpecific.StayLongerAndSave</h4>
+                    <p>@ResourcesMicroSiteSpecific.StayLongerAndSaveDescription</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="home-feature-properties-section-container">
+        <section class="home-feature-properties-section">
+            <h2>@ResourcesMicroSiteSpecific.FeaturedProperties</h2>
+            <div>
+                @if (_featuredProperties.Any())
+                {
+                    <EmblaCarousel Slides="RenderListingCardViewModels(_featuredProperties)"></EmblaCarousel>
+                }
+            </div>
+        </section>
+    </div>
+    @if (Configuration.WhiteLabelSettings.HomePageShowCarRentalSection)
+    {
+        <div class="home-car-rental-section-container">
+            <section class="home-car-rental-section">
+                <img src="/images/whitelabel/hero-carRental.jpg" loading="lazy">
+                <div>
+                    <h2>@ResourcesShared.CheapestCarRentals</h2>
+                    <p>@ResourcesShared.SeeForYourself</p>
+                    <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="@ResourcesShared.FindACar" Click="@(() => NavigationManager.NavigateTo($"{Culture}/car-rental"))" />
+                </div>
+            </section>
+        </div>
+    }
+    <!-- TODO: Refactor this section when CMS is set up -->
+    <div class="home-review-container">
+        @if (Configuration.WhiteLabelSettings.ShowElfReviewWidget)
+        {
+            <section class="home-widgetreview-section">
+                <img src="/images/whitelabel/quote_big_icon.svg" class="big-quote-icon" />
+
+                <div id="reviews-widget" class="@ResourcesMicroSiteSpecific.ElfReviewWidgetClass"></div>
+            </section>
+        }
+        else
+        {
+            <section class="home-review-section">
+                <img src="/images/whitelabel/quote_big_icon.svg" class="big-quote-icon" />
+                <div>
+                    <h2>@ResourcesMicroSiteSpecific.HeresWhyOurGuestsLoveLeavetown</h2>
+                    <div class="review-text">
+                        <img src="/images/whitelabel/quote_small_icon.svg" class="small-quote-icon" />
+                        <p>@ResourcesMicroSiteSpecific.Review01</p>
+                    </div>
+                    <div class="reviewer-name">
+                        <span>@ResourcesMicroSiteSpecific.Review01ReviewerName</span>
+                    </div>
+                    <div class="review-text">
+                        <img src="/images/whitelabel/quote_small_icon.svg" class="small-quote-icon" />
+                        <p>@ResourcesMicroSiteSpecific.Review02</p>
+                    </div>
+                    <div class="reviewer-name">
+                        <span>@ResourcesMicroSiteSpecific.Review02ReviewerName</span>
+                    </div>
+                    <div class="review-text">
+                        <img src="/images/whitelabel/quote_small_icon.svg" class="small-quote-icon" />
+                        <p>@ResourcesMicroSiteSpecific.Review03</p>
+                    </div>
+                    <div class="reviewer-name">
+                        <span>@ResourcesMicroSiteSpecific.Review03ReviewerName</span>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+        
+    <!-- TODO: Add Blog section when CMS is implemented -->
+    @if (Configuration.WhiteLabelSettings.HomePageShowNewsletterSubscription)
+    {
+        <div class="home-newsletter-section-container">
+            <section class="home-newsletter-section">
+                <RadzenImage Path="/images/whitelabel/mail_icon.svg" />
+                <div>
+                    <div>
+                        <h2>@ResourcesShared.ReceiveDiscountsAndPromotionsInbox</h2>
+                        <p>@ResourcesShared.SubscribeToOurNewsletter</p>
+                    </div>
+                    <NewsletterSubscriptionForm />
+                </div>
+            </section>
+        </div>
+    }
+    @if (Configuration.WhiteLabelSettings.HomePageShowListWithUsSection)
+    {
+        <div class="home-list-with-us-section-container">
+            <section class="home-list-with-us-section">
+                <div class="image-container">
+                    <img class="main-image" src="/images/whitelabel/listWithUs.jpg" loading="lazy" />
+                    <img class="overlay" src="images/whitelabel/corp_logo_inverse.svg" loading="lazy" />
+                </div>
+                <div class="call-to-action">
+                    <h2 class="pre-formatted">@ResourcesMicroSiteSpecific.ListWithUsHeading</h2>
+                    <p>@ResourcesMicroSiteSpecific.ListWithUsCaption</p>
+                    <RadzenButton Text="@ResourcesMicroSiteSpecific.ListWithUsAction" Click="@(() => NavigationManager.NavigateTo(Configuration.WhiteLabelSettings.NavListWithUsExternalUrl ?? $"{Culture}/list-with-us"))" />
+                </div>
+            </section>
+        </div>
+    }
+    <Footer />
+</div>
+<style>
+    @@media only screen and (max-width: 48em) {
+        /* Set z-index to be a sane value */
+        div#front-chat-container {
+            z-index: 5 !important; /* set this to a sane value as we want to hide it in some cases on mobile */
+        }
+    }
+</style>
+@code {
+
+    private List<RenderFragment> RenderListingCardViewModels(List<ListingViewModel> listingViewModels)
+    {
+        var listingCardViewModels = listingViewModels.Select(listing => new ListingCardViewModel
+            {
+                Listing = listing,
+                PriceLabel = _priceLabelDictionary.Any() ? _priceLabelDictionary[listing.Id] : ResourcesShared.InquireOnly,
+            }).ToList();
+
+        return listingCardViewModels.Select(RenderListingCardViewModel).ToList();
+    }
+
+    private RenderFragment RenderListingCardViewModel(ListingCardViewModel listingCardViewModel) => __builder =>
+    {
+        <FeaturedListingCard Listing="listingCardViewModel" IsResponsive="false" Tag="featured" />
+    };
+}
+

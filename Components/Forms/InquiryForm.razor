@@ -1,0 +1,92 @@
+﻿@using Leavetown.Client.Components.Filters
+@using Leavetown.Client.Components.Inline
+@using Leavetown.Shared.Models.Projections
+
+<RadzenTemplateForm class="inquiry-container" Data="@_inquiryRequest" TItem="InquiryRequest" Submit="@OnInquirySubmitAsync_Valid" InvalidSubmit="@OnInquirySubmitAsync_Invalid">
+    <div class="inquiry-content">
+        @if (_showSuccessMessage)
+        {
+            <ContactUsSuccessMessage />
+        }
+        <div class="inquiry-form-header-row">
+            <div class="clear-form-button">
+                <input type="text" autofocus="autofocus" style="display:none" />
+                <RadzenButton ButtonStyle="ButtonStyle.Light" ButtonType="ButtonType.Reset" Icon="close" Text="@ResourcesShared.ClearForm" />
+            </div>
+        </div>
+        <div class="inquiry-date-row">
+            <div>
+                <label>@ResourcesShared.SelectYourDates</label>
+                <AvailabilityFilter @ref="@_inquiryAvailabilityFilter" @bind-AvailabilityValue="@_inquiryRequest.Dates"
+                                    UseCheckinCheckout="true"
+                                    UpdateUrlOnChange="false"
+                                    DisablePreviousDates="true"/>
+                <div>
+                    @if (!_isValid)
+                    {
+                        <div class="rz-message rz-messages-error">
+                            @ResourcesShared.CheckInOutRequiredMessage
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="inquiry-name-row">
+            <div>
+                <label>@ResourcesShared.FirstName</label>
+                <RadzenTextBox @bind-Value="@_inquiryRequest.FirstName" Name="FirstName" Placeholder="@ResourcesShared.FirstName"></RadzenTextBox>
+                <RadzenRequiredValidator Component="FirstName" Text="@ResourcesShared.FirstNameRequiredMessage" />
+            </div>
+            <div>
+                <label>@ResourcesShared.LastName</label>
+                <RadzenTextBox @bind-Value="@_inquiryRequest.LastName" Name="LastName" Placeholder="@ResourcesShared.LastName"></RadzenTextBox>
+                <RadzenRequiredValidator Component="LastName" Text="@ResourcesShared.LastNameRequiredMessage" />
+
+            </div>
+        </div>
+        <div class="inquiry-contact-row">
+            <div>
+                <label>@ResourcesShared.Email</label>
+                <RadzenTextBox @bind-Value="@_inquiryRequest.Email" Name="Email" Placeholder="@ResourcesShared.Email"></RadzenTextBox>
+                <RadzenRequiredValidator Component="Email" Text="@ResourcesShared.EmailRequiredMessage" />
+                <RadzenEmailValidator Component="Email" Text="@ResourcesShared.ValidEmailMessage" />
+            </div>
+            <div>
+                <label>@ResourcesShared.Phone</label>
+
+                <RadzenTextBox @bind-Value="@_inquiryRequest.Phone" Name="Phone" Placeholder="@ResourcesShared.Phone"></RadzenTextBox>
+                <RadzenRequiredValidator Component="Phone" Text="@ResourcesShared.PhoneRequiredMessage" />
+            </div>
+        </div>
+        <div class="inquiry-guest-row">
+            <div>
+                <div>
+                    <label>@ResourcesShared.Adults</label>
+                    <RadzenNumeric @bind-Value="@_inquiryRequest.NumberOfAdults" Name="NumberOfAdults" TValue="int" Placeholder="@ResourcesShared.Adults"></RadzenNumeric>
+                    <RadzenNumericRangeValidator Component="NumberOfAdults" Min="1" Max="99" Text="@ResourcesShared.NumberOfAdultsMessage" />
+                </div>
+                <div>
+                    <label>@ResourcesShared.Children</label>
+                    <RadzenNumeric @bind-Value="@_inquiryRequest.NumberOfChildren" Name="NumberOfChildren" TValue="int" Placeholder="@ResourcesShared.Children"></RadzenNumeric>
+                    <RadzenNumericRangeValidator Component="NumberOfChildren" Min="0" Max="99" Text="@ResourcesShared.NumberOfAdultsMessage" />
+                </div>
+                <div>
+                    <label>@ResourcesShared.Pets</label>
+                    <RadzenNumeric @bind-Value="@_inquiryRequest.NumberOfPets" Name="NumberOfPets" TValue="int" Placeholder="@ResourcesShared.Pets"></RadzenNumeric>
+                    <RadzenNumericRangeValidator Component="NumberOfPets" Min="0" Max="99" Text="@ResourcesShared.NumberOfAdultsMessage" />
+                </div>
+            </div>
+        </div>
+        <div class="inquiry-message-row">
+            <div>
+                <label>@ResourcesShared.Message</label>
+                <RadzenTextArea @bind-Value="@_inquiryRequest.Message" Name="Message" Placeholder="@ResourcesShared.InquiryMessagePlaceholder" />
+                <RadzenRequiredValidator Component="Message" Text="@ResourcesShared.MessageRequiredMessage" />
+            </div>
+        </div>
+    </div>
+    <div class="send-inquiry-button">
+        <RadzenButton BusyText="@ResourcesShared.SendingBusyMessage" IsBusy="@_isBusy" ButtonStyle="Radzen.ButtonStyle.Primary" class="auto-button-width" ButtonType="ButtonType.Submit" Text="@ResourcesShared.SendInquiry" />
+    </div>
+</RadzenTemplateForm>

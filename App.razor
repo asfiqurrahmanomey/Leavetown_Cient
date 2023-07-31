@@ -1,0 +1,30 @@
+﻿@using Leavetown.Client.Shared
+@using Leavetown.Client.Utilities.Settings
+@using Leavetown.Client.Components
+
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <CascadingValue TValue="Configuration" Value="@Configuration" IsFixed="true">
+            <CascadingValue TValue="I18nText.SharedResources" Value="@_sharedResources" IsFixed="true">
+                <CascadingValue TValue="I18nText.MicroSiteSpecificResources" Value="@_microSiteResources" IsFixed="true">
+                    @* Checking null on Home as an example to see if WhiteLabel text table has loaded *@
+                    @if (_sharedResources.Home != null && _microSiteResources.WebsiteTitle != null)
+                    {
+                        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+                        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+                    }
+                </CascadingValue>
+            </CascadingValue>
+        </CascadingValue>
+    </Found>
+    <NotFound>
+        <CascadingValue TValue="Configuration" Value="@Configuration" IsFixed="true">
+            <CascadingValue TValue="I18nText.SharedResources" Value="@_sharedResources" IsFixed="true">
+                <CascadingValue TValue="I18nText.MicroSiteSpecificResources" Value="@_microSiteResources" IsFixed="true">
+                    <Custom404 />
+                </CascadingValue>
+            </CascadingValue>
+        </CascadingValue>
+    </NotFound>
+</Router>
+<GoogleTagManagerPageViewTracker />

@@ -1,0 +1,127 @@
+.top-row {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: fit-content;
+}
+
+    .top-row ::deep .nav-link {
+        text-decoration: none;
+        color: var(--colors-text);
+    }
+
+.menu-button {
+    border: unset;
+    align-items: center;
+    display: flex;
+    height: 3rem;
+    padding-top: 0.5rem;
+}
+
+::deep .currency-popover {
+    display: none;
+}
+
+.oi {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -0.125rem;
+}
+
+::deep .nav-item:not(button) {
+    color: var(--colors-text);
+    border-radius: var(--radii-md);
+    height: 2.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: var(--fontWeights-semibold);
+}
+
+    ::deep .nav-item:not(button):hover {
+        text-decoration: none;
+        background-color: var(--colors-gray-100);
+    }
+
+.controls {
+    display: none;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    align-items: center;
+}
+
+    .controls > ::deep * {
+        padding: 0 0.5rem;
+    }
+
+.controls > ::deep a:last-child {
+    margin-left: auto;
+}
+
+.slide-in-menu {
+    transform: translate3d(0, 0, 0) !important;
+}
+.side-nav {
+    position: fixed;
+    right: 0;
+    height: 100%;
+    z-index: 2;
+    background-color: var(--colors-white);
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    width: 18rem;
+    transition: 0.3s ease-out;
+    transform: translate3d(100vw, 0, 0);
+}
+
+    .side-nav ::deep a {
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+        .side-nav ::deep a:hover {
+            text-decoration: none;
+        }
+
+    .side-nav > div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 0.5rem 0 0.5rem;
+    }
+
+    .side-nav ::deep button {
+        align-items: center;
+        display: flex;
+        border: unset;
+    }
+
+    .side-nav ::deep .lt-popover-dropdown-btn {
+        padding: 0;
+    }
+
+    .side-nav > ::deep div:not(:last-child) > *:first-child {
+        padding-left: 1rem;
+    }
+    .header-logo-container {
+        position:absolute;
+        left:1rem;
+    }
+@media screen and (min-width: 62em) {
+    .menu-button {
+        display: none;
+    }
+
+    ::deep .currency-popover {
+        display: block;
+    }
+
+    .controls {
+        display: flex;
+    }
+}

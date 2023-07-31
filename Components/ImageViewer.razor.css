@@ -1,0 +1,164 @@
+﻿::deep img {
+    margin-right: auto;
+    object-fit: cover;
+    height: inherit;
+    width: 100vw;
+    height: 100vw;
+    max-width: 135vh;
+    max-height: 100vh;
+    margin-left: auto;
+}
+
+@keyframes hideMouse {
+    0% {
+        cursor: default;
+    }
+
+    99% {
+        cursor: default;
+    }
+
+    100% {
+        cursor: none;
+    }
+}
+
+.iv-main {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;    
+    justify-content: center;    
+}
+
+    .iv-main:hover {
+        animation: hideMouse 4s;
+    }
+
+    .iv-main > button {
+        position: absolute;
+        z-index: 3;
+        border-radius: 2rem;
+        background-color: rgb(99 99 99 / 70%);
+        border: unset;
+        margin: 1rem;
+        width: 3rem;
+        height: 3rem;
+        font-size: var(--fontSizes-3xl);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
+        transition: .25s ease;
+    }
+
+        .iv-main > button:hover {
+            background-color: rgb(150 150 150 / 70%);
+            transition: .25s ease;
+        }
+
+        .iv-main > button:first-of-type{
+            left: 0;
+        }
+
+        .iv-main > button:last-of-type {
+            right: 0;
+        }
+
+    .iv-main:hover .overlay > div:first-of-type {
+        transform: translateY(-0.625rem);
+    }
+
+    .iv-main:hover .overlay > div:last-of-type {
+        transform: translateY(0.625rem);
+    }
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    align-content: space-between;
+    z-index: 2;
+    color: white;
+}
+
+    .overlay > div {
+        padding: 1rem;
+    }
+
+        .overlay > div > button {
+            background: unset;
+            color: #c9c9c9;
+            border: unset;
+            font-size: var(--fontSizes-xl);
+            outline: unset;
+        }
+            .overlay > div > button:hover {
+                color: #ffffff;
+            }
+
+            .overlay > div > button ::deep > i {
+                display: none !important;
+            }
+
+                .overlay > div > button ::deep > i.active {
+                    display: inline-flex !important;
+                }
+
+        .overlay > div:first-of-type {
+            display: flex;
+            background: linear-gradient(rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0));
+            flex-direction: row;
+            justify-content: flex-end;
+            transform: translateY(-3.125rem);
+            transition: .5s ease;
+        }
+
+        .overlay > div:last-of-type {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.33));
+            transform: translateY(3.125rem);
+            transition: .5s ease;
+        }
+
+.iv-background {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.iv-gallery {
+}
+
+    .iv-gallery > div {
+        z-index: 1;
+        position: relative;
+        outline: 0;
+        display: flex;
+        align-items: center;
+        transform: translate3d(0, 0, 0);
+        justify-content: center;
+    }
+
+.iv-wrapper {
+    display: flex;
+    vertical-align: top;
+    overflow-x: hidden;
+    max-height: 100vh;
+    overflow-y: hidden;
+    width: 100vw;
+}

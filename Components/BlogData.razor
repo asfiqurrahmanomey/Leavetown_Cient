@@ -1,0 +1,51 @@
+﻿@using Leavetown.Shared.Models.LeavetownCms
+
+<div class="blog-data">
+    @if (!string.IsNullOrWhiteSpace(AdditionalBlogCaption))
+    {
+        <div class="blog-caption">@AdditionalBlogCaption</div>
+    }
+    @if(IsTop)
+    {
+        <h1 class="blog-title">@Blog?.Title</h1>
+    }
+    else
+    {
+          <a href="@($"{Culture}/magazine/{Blog?.BlogUrl}")">
+               <h2 class="blog-title">@Blog?.Title</h2>
+           </a>
+    }
+    <div class="blog-metadata">
+        @if (!string.IsNullOrWhiteSpace(Blog?.Author))
+        {
+            @string.Concat(ResourcesShared.By," ")
+            <RadzenLink Text="@Blog?.Author" Path="@($"{Culture}/magazine/author/{Blog?.Author}")" />
+        }
+        else
+        {
+            @ResourcesShared.Published
+        }
+
+        @(" ")
+        @string.Concat(ResourcesShared.On," ")
+        @(Blog?.OriginalPostCreatedAt != DateTime.MinValue ? string.Concat(Blog?.OriginalPostCreatedAt.ToString("MMMM dd, yyyy"), " ") :
+                                                             string.Concat(Blog?.PublishedAt.ToString("MMMM dd, yyyy"), " "))
+        @*
+        @string.Concat(ResourcesShared.In," ")
+        @foreach (var category in Blog?.Categories ?? new())
+        {
+            <a href="@($"{Culture}/magazine/categories/{category?.CategoryUrl}")">@(category?.Name)</a>
+            @(" ")
+        }
+        *@
+    </div>
+    <div>
+        <p class="blog-abstract">
+            @Blog?.Abstract
+        </p>
+    </div>
+    @if(ShowButton)
+    {
+        <RadzenButton Click=@( () => NavigationManager.NavigateTo($"{Culture}/magazine/{Blog?.BlogUrl}")) ButtonStyle="IsTop? ButtonStyle.Primary : ButtonStyle.Secondary" Text="@ResourcesShared.ReadMore" />
+    }
+</div>

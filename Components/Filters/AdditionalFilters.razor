@@ -1,0 +1,71 @@
+﻿<div class="additional-filters">
+    <div class="filters-container">
+        <div class="rooms-and-beds">
+            <div class="filter-category rooms-beds-filter-title">
+                @ResourcesShared.RoomsAndBeds
+            </div>
+            <Counter @ref="@_bedroomsCounter"
+                     Title="@ResourcesShared.NumberOfBedrooms"
+                     MinValue="0"
+                     MaxValue="12"
+                     ValueChanged="@(() => OnBedroomFilterValueChange())" />
+            <Counter @ref="@_bedsCounter"
+                     Title="@ResourcesShared.Beds"
+                     MinValue="0"
+                     MaxValue="24"
+                     ValueChanged="@(() => OnBedsFilterValueChange())" />
+
+            <Counter @ref="@_bathroomCounter"
+                     Title="@ResourcesShared.BathroomsTitle"
+                     MinValue="0"
+                     MaxValue="24"
+                     ValueChanged="@(() => OnBathroomFilterValueChange())" />
+        </div>
+        <div class="amenity-filters-container">
+            <div class="filter-category">
+                @ResourcesShared.PropertyTypes
+            </div>
+            <div class="amenity-filters">
+                @foreach (var propertyType in _propertyTypes)
+                {
+                    <div class="filter">
+                        <RadzenCheckBox TValue="bool" @bind-Value=propertyType.isActive Change=@(() => OnPropertyTypeFilterValueChange()) />
+                        <RadzenLabel class="title" Text="@propertyType.Value.Name" />
+                    </div>
+                }
+            </div>
+        </div>
+
+        @foreach (var amenityCategory in _amenityCategories)
+        {
+            var amenityCategoryCollapsed = amenityCategory.Count() > 8;
+
+            <div class="amenity-filters-container">
+                <div class="filter-category">
+                    @amenityCategory.Key
+                </div>
+                <div class="@(_filterExpandedDictionary[amenityCategory.Key.ToLower()] ? "amenity-filters expanded" : amenityCategoryCollapsed ? "amenity-filters collapsed" : "amenity-filters")">
+                    @foreach (var amenity in amenityCategory)
+                    {
+                        <div class="filter">
+                            <RadzenCheckBox TValue="bool" @bind-Value=amenity.isActive Change=@(() => OnAmenitiesFilterValueChange()) />
+                            <RadzenLabel class="title" Text="@amenity.Value.Name" />
+                        </div>
+                    }
+                </div>
+
+                @if (amenityCategoryCollapsed)
+                {
+                    <RadzenButton class="show-more"
+                        ButtonStyle="Radzen.ButtonStyle.Secondary" 
+                        Text="@(_filterExpandedDictionary[amenityCategory.Key.ToLower()] ? ResourcesShared.ShowLessButtonText : ResourcesShared.ShowMoreButtonText)" 
+                        Click="@(() => ToggleFirstAmenityFilterExpanded(amenityCategory.Key.ToLower()) )" />
+                }
+            </div>
+        }
+        <PriceFilter ></PriceFilter>
+    </div>
+    <footer>
+        <RadzenButton ButtonStyle="Radzen.ButtonStyle.Primary" class="more-filters" Text="@ResourcesShared.SaveAndClose" Click="@SaveFilters" />
+    </footer>
+</div>

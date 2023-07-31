@@ -1,0 +1,10 @@
+﻿.payment-response-page {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.payment-response-section {
+    margin: 5rem auto;
+    width: 75em;
+    height: 40vh;
+}

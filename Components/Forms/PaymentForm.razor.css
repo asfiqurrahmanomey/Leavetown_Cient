@@ -1,0 +1,239 @@
+﻿h3 {
+    font-weight: var(--fontWeights-bold);
+    line-height: var(--lineHeights-shorter);
+    font-size: var(--fontSizes-lg);
+    color: var(--colors-text);
+    margin: 2rem;
+}
+
+button {
+    background: var(--colors-primary-500);
+    color: var(--colors-white);
+    transition: all 0.1s ease 0s;
+    white-space: nowrap;
+    font-weight: var(--fontWeights-semibold);
+    height: 2.5rem;
+    min-width: var(--sizes-10);
+    font-size: var(--fontSizes-md);
+    border: unset;
+    border-radius: var(--radii-md);
+    align-items: center;
+}
+
+button:hover {
+    background: var(--colors-primary-600);
+}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+#payment-form {
+    position: relative;
+}
+
+    #payment-form > span {
+        margin-left: 2rem;
+    }
+
+#payment-message {
+    padding: 0 2rem 1rem 2rem;
+    color: var(--colors-red-500);
+}
+
+.submit-button-container {
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+.terms-and-conditions-check {
+    padding: 1.5rem 2rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+#card-element {
+    border-radius: 4px 4px 0 0;
+    padding: 12px;
+    border: 1px solid rgba(50, 50, 93, 0.1);
+    height: 44px;
+    width: auto;
+    background: white;
+    margin: 0.5rem 2rem;
+}
+
+.co-billing-address-button-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .co-billing-address-button-row > ::deep button {
+        width: fit-content;
+    }
+
+.co-billing-address-content {
+    padding: 1rem 2rem;
+}
+
+    .co-billing-address-content > span {
+        margin-top: 1rem;
+    }
+
+::deep .rz-dropdown {
+    font-size: var(--fontSizes-md);
+    height: var(--sizes-10);
+}
+
+::deep .co-payment-previous-btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: fit-content;
+}
+
+.validation-errors {
+    margin-left: 2rem;
+}
+
+.error{
+    background-color: var(--colors-red-200);
+    margin: auto;
+    padding: 1em;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    text-align: left;
+    line-height: 17px;
+    margin-top: 12px;
+    align-items: center;
+    display: flex;
+}
+.error span{
+    color: var(--colors-red-500);
+    margin-inline-end:0.7rem;
+}
+
+.hidden{
+    display: none;
+}
+
+.co-property-accepts-payment-line {
+    position: absolute;
+    right: 0;
+    text-align: right;
+    width: 100%;
+    color: var(--colors-text);
+}
+
+.co-booking-error-container {
+    margin: 5rem 2rem 0 2rem;
+}
+
+/* Small devices (landscape tablets, less than 768px) */
+@media only screen and (min-width:0em) {
+
+    .co-property-accepts-payment-container {
+        margin-bottom: -2.5rem;
+    }
+
+    .co-property-accepts-payment-line {
+        position: static;
+        text-align: left;
+        margin-top: 1rem;
+    }
+
+    #submit {
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    .submit-button-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+        .submit-button-container > ::deep .spinner {
+            left: unset;
+            top: unset;
+            position: relative;
+        }
+
+    ::deep .co-payment-previous-btn {
+        position: relative;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .button-row {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 48em) {
+    #payment-form {
+        padding-bottom: 6rem;
+    }
+
+    .co-booking-error-container {
+        margin: 1rem 2rem 0 2rem;
+    }
+
+    .co-property-accepts-payment-container {
+        margin-bottom: 0;
+    }
+
+    .co-property-accepts-payment-line {
+        position: absolute;
+        bottom: -3.125rem;
+        text-align: right;
+    }
+
+    #submit {
+        width: auto;
+        margin-top: unset;
+    }
+
+    .button-row > div {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        margin: 2rem;
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    ::deep .co-payment-previous-btn {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        margin: 0 2rem;
+        margin-bottom: 2rem;
+        width: fit-content;
+    }
+
+    .button-row {
+        border-bottom: solid 0.05rem var(--colors-gray-100);
+        display: flex;
+        flex-direction: row;
+    }
+
+    .submit-button-container {
+        margin-bottom: 0;
+    }
+
+        .submit-button-container > ::deep .spinner {
+            left: -20%;
+            top: -5px;
+            position: absolute;
+        }
+}

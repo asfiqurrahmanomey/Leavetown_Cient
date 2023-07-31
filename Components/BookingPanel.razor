@@ -1,0 +1,74 @@
+﻿@using Leavetown.Client.Components.Inline
+@using Leavetown.Client.Components.Filters
+@using Leavetown.Client.Constants
+
+<div class="bw-container">
+    <div class="bw-heading">
+        <PriceInfo IsAverage="true" Label="@PriceLabel"></PriceInfo>
+    </div>
+    <div class="overlay @(RenderState.IsPrerender ? "display" : "")">
+     </div>
+    <div class="bw-content">
+
+        <span class="popover-label">@ResourcesShared.SelectYourDates</span>
+
+        <ListingAvailabilityFilter @ref="@_bookingListingAvailabilityFilter" @bind-AvailabilityValue="@AvailabilityValue"
+                                   Id="@(!string.IsNullOrEmpty(Id) ? $"{Id}-booking-dates-popover" : "booking-dates-popover")"
+                                   Title="@(_bookingListingAvailabilityFilter != null && (!_bookingListingAvailabilityFilter.AvailabilityValue.HasValue || _bookingListingAvailabilityFilter.IsEndDateSelecting) ? (_bookingListingAvailabilityFilter.IsEndDateSelecting ? ResourcesShared.SelectYourCheckOutDate : ResourcesShared.SelectYourCheckInDate) : "")"
+                                   Listing="@Listing"
+                                   DisablePreviousDates="true"
+                                   UseCheckinCheckout="true"
+                                   Changed="@((args) => OnDateChanged(args))"
+                                   StartDateSelected="@OnStartDateSelected"
+                                   MaxDateOverride="DateTime.Now.AddYears(2)"
+                                   LinkedCalendars="true"
+                                   UpdateUrlOnChange="true"/>
+
+        <span class="popover-label">@ResourcesShared.SelectYourGuests</span>
+        <GuestFilter @ref="@_bookingGuestsFilter" @bind-GuestValue="@GuestValue" @bind-PetValue="@PetValue"
+                     Id="@(!string.IsNullOrEmpty(Id) ? $"{Id}-booking-guests-popover" : "booking-guests-popover")"
+                     MinAdults="1"
+                     IncludePets="@(Listing != null && Listing.PetsAllowed)"
+                     GuestChanged="@((args) => OnGuestChanged(args))"
+                     PetChanged="@((args) => OnPetChanged(args))"
+                     PetMax="@(Listing?.NumberOfPets ?? 0)"/>
+
+        @if (RenderState.IsPrerender)
+        {
+            <div class="spinner-container">
+                <LoadingIndicator/>
+            </div>
+        }
+
+        @{
+            var nextStepText = AvailabilityValue.HasValue ? ResourcesShared.BookNow : ResourcesShared.SelectDates;
+            var hasError = _quote != null && _quote.BookingErrorCodes != null && _quote.BookingErrorCodes.Any();
+        }
+        @if (AvailabilityValue.HasValue && GuestValue.HasValue)
+        {
+            @if (_quote == null)
+            {
+                <div class="spinner-container">
+                    <LoadingIndicator/>
+                </div>
+            }
+            else
+            {
+                @if (hasError)
+                {
+                    <div>
+                        <BookingErrors ErrorMessageCodes="@_quote?.BookingErrorCodes!.ToList()"/>
+                    </div>
+                }
+                else
+                {
+                    <CostCalculation StayNights="@AvailabilityValue.Days" Quote="@_quote" />
+                }
+            }
+        }
+        <RadzenButton Disabled="@(hasError || (AvailabilityValue.HasValue && GuestValue.HasValue && _quote == null))" ButtonStyle="Radzen.ButtonStyle.Primary" Click="@(() => GetNextBookingStep())" Text="@nextStepText"/>
+        <RadzenButton ButtonStyle="Radzen.ButtonStyle.Secondary" Click="@(() => OpenInquiryDialog())" Text="@ResourcesShared.Inquire"/>
+        <RadzenButton class="bw-toggle-booking-panel-display" ButtonStyle="Radzen.ButtonStyle.Secondary" Click="@(() => HideBookingPanel())" Text="@ResourcesShared.BackToListing"/>
+    </div>
+
+</div>

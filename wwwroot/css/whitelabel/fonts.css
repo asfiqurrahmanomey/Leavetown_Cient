@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Argentum+Sans+Light:wght@400;600;700&display=swap');
+:root {
+    --fonts-body: 'Argentum Sans Light', sans-serif;
+    --fonts-heading: 'Argentum Sans Light', sans-serif;
+    --fonts-other: 'Argentum Sans Light', sans-serif;
+    --fontWeights-thin: 300;
+    --fontWeights-light: 300;
+    --fontWeights-normal: 400;
+    --fontWeights-medium: 600;
+    --fontWeights-semibold: 600;
+    --fontWeights-bold: 700;
+    --fontWeights-extrabold: 700;
+    --fontWeights-black: 700;
+    --fontSizes-xs: 0.75rem;
+    --fontSizes-sm: 0.75rem;
+    --fontSizes-md: 0.875rem;
+    --fontSizes-lg: 1rem;
+    --fontSizes-xl: 1.125rem;
+    --fontSizes-2xl: 1.25rem;
+    --fontSizes-3xl: 1.5rem;
+    --fontSizes-4xl: 1.875rem;
+}
+@media only screen and (min-width: 48em) {
+    :root {
+        --fontSizes-xs: 0.75rem;
+        --fontSizes-sm: 0.875rem;
+        --fontSizes-md: 1rem;
+        --fontSizes-lg: 1.125rem;
+        --fontSizes-xl: 1.25rem;
+        --fontSizes-2xl: 1.5rem;
+        --fontSizes-3xl: 1.875rem;
+        --fontSizes-4xl: 2.25rem;
+    }
+}
+p {
+    font-size: var(--fontSizes-lg);
+}
+    
+h1 {
+    font-size: var(--fontSizes-2xl);
+    font-weight: var(--fontWeights-normal);
+}
+
+h2 {
+    font-size: var(--fontSizes-xl);
+}
+    h3 {
+        font-size: var(--fontSizes-xl);
+    }
+
+    h4 {
+        font-size: var(--fontSizes-lg);
+    }
+
+    h5 {
+        font-size: var(--fontSizes-md);
+    }
+
+    h6 {
+        font-size: var(--fontSizes-sm);
+    }
+@media only screen and (min-width: 48em) {
+    h1 {
+        font-size: var(--fontSizes-3xl);
+    }
+
+    h2 {
+        font-size: var(--fontSizes-2xl);
+    }
+}

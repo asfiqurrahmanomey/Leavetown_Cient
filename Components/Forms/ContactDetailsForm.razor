@@ -1,0 +1,76 @@
+﻿@using Leavetown.Client.Models.ViewModels;
+@using Leavetown.Shared.Models
+
+<RadzenTemplateForm class="lt-form" TItem="BookingViewModel" Data="@Data" Submit="@OnValidSubmit" InvalidSubmit="@OnInvalidSubmit">
+    <ObjectGraphDataAnnotationsValidator />
+    <div class="form-title">
+        <h1>@ResourcesShared.YourDetails</h1>
+        <span>@ResourcesShared.EnterContactAndBilling</span>
+    </div>
+    <div class="form-details">
+        <h3>@Title</h3>
+        <section class="form-grid">
+            <div class="row-1">
+                <RadzenLabel Component="firstNameTextBox" Text="@ResourcesShared.FirstName" />
+                <RadzenTextBox id="firstNameTextBox" @bind-Value="@Data.FirstName"/>
+                <ValidationMessage For="@(() => Data.FirstName)" />
+            </div>
+            <div class="row-1">
+                <RadzenLabel Component="lastNameTextBox" Text="@ResourcesShared.LastName" />
+                <RadzenTextBox id="lastNameTextBox" @bind-Value="@Data.LastName"/>
+                <ValidationMessage For="@(() => Data.LastName)" />
+            </div>
+            <div class="row-2">
+                <RadzenLabel Component="emailTextBox" Text="@ResourcesShared.Email" />
+                <RadzenTextBox id="emailTextBox" @bind-Value="@Data.Email"/>
+                <ValidationMessage For="@(() => Data.Email)" />
+            </div>
+            <div class="row-2">
+                <RadzenLabel Component="phoneTextBox" Text="@ResourcesShared.PhoneIncludingExtenstion" />
+                <RadzenTextBox id="phoneTextBox" @bind-Value="@Data.PhoneNumber"/>
+                <ValidationMessage For="@(() => Data.PhoneNumber)" />
+            </div>
+        </section>
+
+        <h3>@Title</h3>
+        <section class="form-grid">
+            <div class="row-1">
+                <RadzenLabel Component="addressLine1TextBox" Text="@ResourcesShared.AddressLine1" />
+                <RadzenTextBox id="addressLine1TextBox" @bind-Value="@Data.ContactAddressDetails.Address1" />
+                <ValidationMessage For="@(() => Data.ContactAddressDetails.Address1)" />
+            </div>
+            <div class="row-1">
+                <RadzenLabel Component="addressLine2TextBox" Text="@ResourcesShared.AddressLine2" />
+                <RadzenTextBox id="addressLine2TextBox" @bind-Value="@Data.ContactAddressDetails.Address2" />
+                <ValidationMessage For="@(() => Data.ContactAddressDetails.Address2)" />
+            </div>
+            <div class="row-2">
+                <RadzenLabel Component="cityTextBox" Text="@ResourcesShared.TownCity" />
+                <RadzenTextBox id="cityTextBox" @bind-Value="@Data.ContactAddressDetails.City" />
+                <ValidationMessage For="@(() => Data.ContactAddressDetails.City)" />
+            </div>
+            <div class="row-2">
+                <RadzenLabel Component="provinceStateTextBox" Text="@ResourcesShared.StateCounty" />
+                <RadzenTextBox id="provinceStateTextBox" @bind-Value="@Data.ContactAddressDetails.ProvinceState" />
+                <ValidationMessage For="@(() => Data.ContactAddressDetails.ProvinceState)" />
+            </div>
+            <div class="row-3">
+                <RadzenLabel Component="postalCodeTextBox" Text="@ResourcesShared.ZipPostalCode" />
+                <RadzenTextBox id="postalCodeTextBox" @bind-Value="@Data.ContactAddressDetails.PostalCode" />
+                <ValidationMessage For="@(() => Data.ContactAddressDetails.PostalCode)" />
+            </div>
+            <div class="row-3">
+                <RadzenLabel Component="countryDropDown" Text="@ResourcesShared.Country" />
+                <RadzenDropDown id="countryDropDown" @bind-Value="@Data.ContactAddressDetails.Country" Data="@_ddlCountriesData" TextProperty="@nameof(CountryModel.Name)" />
+                <ValidationMessage For="@(() => Data.ContactAddressDetails.Country.Code)" />
+            </div>
+        </section>
+    </div>
+    <div class="nav-row">
+        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click=@(() => NavigateToReturnUrl())>@ResourcesShared.Previous</RadzenButton>
+        <RadzenButton ButtonType="ButtonType.Submit" ButtonStyle="ButtonStyle.Primary">@ResourcesShared.Continue</RadzenButton>
+    </div>
+    <div class="validation-row">
+        <ValidationSummary />
+    </div>
+</RadzenTemplateForm>

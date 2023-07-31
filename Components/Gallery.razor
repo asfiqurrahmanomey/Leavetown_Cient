@@ -1,0 +1,17 @@
+﻿<div class="gallery">
+    @for (int i = 0; (i < Images.Count()) && (i < maxImagesOnGalleryPreview); i++)
+    {
+        int index = i;
+        <div class="image" @onclick="@(() => OpenImageViewer(index))"><RadzenImage Path="@Images[i].Url" alt="@Images[i].Caption"></RadzenImage></div>
+    }
+
+    <div class="view-gallery-button">
+        <div>
+            <RadzenButton ButtonStyle="ButtonStyle.Light" Click="@(() => OpenImageViewer())">
+                <span><RadzenIcon Icon="photo_library" />@string.Format(ResourcesShared.ViewGalleryButtonText, Images.Count)</span>
+            </RadzenButton>
+        </div>
+    </div>
+</div>
+
+<ImageViewer @ref="@_imageViewer" Images="@Images" Index="@_imageViewerIndex"/>

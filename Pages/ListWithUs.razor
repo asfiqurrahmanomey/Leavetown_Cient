@@ -1,0 +1,31 @@
+﻿@page "/list-with-us"
+@page "/{Culture}/list-with-us"
+@page "/contact-business"
+@page "/{Culture}/contact-business"
+@inherits BasePage
+
+<PageTitle>@ResourcesMicroSiteSpecific.NavLinkListWithUs</PageTitle>
+<HeadContent>
+    <meta name="description" content="@ResourcesMicroSiteSpecific.WebsiteDescription">
+</HeadContent>
+
+<div class="list-with-us-page">
+    <Header />
+    <div class="banner-image">
+        <RadzenImage Path="images/whitelabel/hero-listWithUs.jpg" alt="" />
+    </div>
+    <div class="list-with-us-container">
+        <section class="list-with-us-form-section">
+            <div class="list-with-us-form">
+                <div class="list-with-us-form-column form-intro">
+                    <h1>@ResourcesMicroSiteSpecific.NavLinkListWithUs</h1>
+                    <p>@ResourcesMicroSiteSpecific.ListWithUsContactFormPreamble</p>
+                </div>
+                <div class="list-with-us-form-column form-container">
+                    <Leavetown.Client.Components.Forms.BusinessInquiryForm></Leavetown.Client.Components.Forms.BusinessInquiryForm>
+                </div>
+            </div>
+        </section>
+    </div>
+    <Footer />
+</div>

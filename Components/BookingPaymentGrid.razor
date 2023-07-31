@@ -1,0 +1,47 @@
+﻿@using Leavetown.Client.Components.Inline
+
+@if(!RenderState.IsPrerender)
+{
+    <div class="co-table-container">
+        <table class="co-table">
+            <thead>
+                <tr>
+                    <th>@ResourcesShared.BookingItem</th>
+                    <th>@ResourcesShared.Quantity</th>
+                    <th>@ResourcesShared.TotalPrice</th>
+                    <th>@ResourcesShared.DueToday</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>
+                    <span class="co-confirm-property-name">@Listing.SalesChannelHeadline</span>
+                    <div class="co-confirm-guest-info">
+                        <GuestInfo AdultCount="@Booking.NumberOfAdults" ChildCount="@Booking.NumberOfChildren" PetCount="@Booking.NumberOfPets" />
+                        <DateRange Checkin="@Booking.CheckIn" Checkout="@Booking.CheckOut" />
+                    </div>
+                </td>
+                <td>
+                    @string.Format(ResourcesShared.NumberOfNights, Booking.Days)
+                </td>
+                <td>
+                    @($"{_currency?.Symbol}{_quote.Total:##,#.00}")
+                </td>
+                <td>
+                    @($"{_currency?.Symbol}{_quote.PaymentAmount:##,#.00}")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @ResourcesShared.Total
+                </td>
+                <td></td>
+                <td>
+                    @($"{_currency?.Symbol}{_quote.Total:##,#.00}")
+                </td>
+                <td>
+                    @($"{_currency?.Symbol}{_quote.PaymentAmount:##,#.00}")
+                </td>
+            </tr>
+        </table>
+    </div>
+}

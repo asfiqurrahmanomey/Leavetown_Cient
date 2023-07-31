@@ -1,0 +1,97 @@
+﻿@page "/magazine"
+@page "/{Culture}/magazine"
+@page "/magazine/page/{PageId:int}"
+@page "/{Culture}/magazine/page/{PageId:int}"
+@page "/magazine/categories/{CategoryUrl}"
+@page "/{Culture}/magazine/categories/{CategoryUrl}"
+@page "/magazine/categories/{CategoryUrl}/page/{PageId:int}"
+@page "/{Culture}/magazine/categories/{CategoryUrl}/page/{PageId:int}"
+@page "/magazine/author/{Author}"
+@page "/{Culture}/magazine/author/{Author}"
+@page "/magazine/author/{Author}/page/{PageId:int}"
+@page "/{Culture}/magazine/author/{Author}/page/{PageId:int}"
+@inherits BasePage
+@using Leavetown.Client.Components
+<PageTitle>@ResourcesMicroSiteSpecific.BlogsTitle</PageTitle>
+<HeadContent>
+    <meta name="description" content="@ResourcesMicroSiteSpecific.BlogsMetaDescription">
+</HeadContent>
+
+@if (_blogs.Any()) // This helps keep the scroll at the top when navigating to this page.
+{
+    <div class="blog-page-content">
+        <Header />
+        @if (string.IsNullOrWhiteSpace(CategoryUrl) && string.IsNullOrWhiteSpace(Author))
+        {
+            <div class="top-blog">
+                <div class="banner-image">
+                    <RadzenImage class="blog-image" Path="@_featured?.HeroImage?.Url" />
+                </div>
+                <div class="top-blog-data-wrapper">
+                    <BlogData Blog="_featured" Culture="@Culture" IsTop="true" AdditionalBlogCaption="@ResourcesShared.FeaturedPost" />
+                </div>
+            </div>
+        }
+        <div class="blogs-wrapper">
+            @{
+                var pagingDescription = PageId > 0 ? $", {@ResourcesShared.Page} {PageId}" : string.Empty;
+
+                // 20220223 - KGM - This code commented out while we review usage of Blog Post Categories
+                //switch (string.IsNullOrWhiteSpace(CategoryUrl) && string.IsNullOrWhiteSpace(Author))
+                //{
+                //    case true:
+                //        <h1 class="blogs-header fix-header-margin">@string.Concat(@ResourcesShared.LatestPosts,pagingDescription)</h1>
+                //        <div class="blog-categories">
+                //            <RadzenLabel Text="@ResourcesShared.Categories" />
+                //            @foreach (var category in _categories)
+                //            {
+                //                <RadzenButton Click=@( () => NavigationManager.NavigateTo($"{Culture}/magazine/categories/{category.CategoryUrl}")) class="category-link" ButtonStyle="ButtonStyle.Secondary" Text="@category.Name" />
+                //            }
+                //        </div>
+                //        break;
+                //    case false:
+                //        if (!string.IsNullOrWhiteSpace(CategoryUrl))
+                //        {
+                //            var categoryName = _categories.Where(a => a.CategoryUrl == CategoryUrl).Select(x => x.Name).FirstOrDefault();
+                //            <h1 class="blogs-header">@string.Concat($"{@ResourcesShared.Category}: {categoryName}",pagingDescription)</h1>
+                //        }
+                //        else
+                //        {
+                //            <h1 class="blogs-header">@string.Concat($"{@ResourcesShared.Author}: {Author}",pagingDescription)</h1>
+                //        }
+                //        break;
+                //}
+
+                var blogItems = string.IsNullOrWhiteSpace(CategoryUrl) && string.IsNullOrWhiteSpace(Author) ? _blogs.Skip(1) : _blogs;
+                foreach (var blog in blogItems)
+                {
+                    var decodedBlog = blog;
+                    <div class="blog">
+                        <div class="blog-image-wrapper">
+                            <NavLink href="@($"{Culture}/magazine/{decodedBlog?.BlogUrl}")">
+                                <RadzenImage class="blog-image" Path="@decodedBlog?.HeroImage?.Url" />
+                            </NavLink>
+                        </div>
+                        <div class="blog-summary-wrapper">
+                            <BlogData Blog="decodedBlog" Culture="@Culture" />
+                        </div>
+                    </div>
+                }
+            }
+            <div class="paging-navigation">
+                @if (PageId > 0)
+                {
+                    <RadzenButton Click=@( () => RedirectWithFilters(PageId - 1)) ButtonStyle="ButtonStyle.Primary" Text="@ResourcesShared.PreviousPosts" />
+                }
+                @if ((PageId + 1) * _pageItemsLimit < _itemsCount)
+                {
+                    <RadzenButton Click=@( () => RedirectWithFilters(PageId + 1)) ButtonStyle="ButtonStyle.Primary" Text="@ResourcesShared.NextPosts" />
+                }
+            </div>
+        </div>
+        <Footer />
+    </div>
+}
+
+
+

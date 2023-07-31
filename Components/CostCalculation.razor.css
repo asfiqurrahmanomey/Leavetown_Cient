@@ -1,0 +1,45 @@
+﻿.cc-cost-section {
+    overflow-y: auto;
+    max-height: 10rem;
+    font-size: 0.875rem;
+}
+
+.cc-total-cost-section {
+    border-top: solid 0.05rem var(--colors-gray-100);
+    border-bottom: solid 0.05rem var(--colors-gray-100);
+}
+
+    .cc-cost-section > div,
+    .cc-total-cost-section > div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-weight: 400;
+        margin: 0.5rem 0;
+    }
+
+.cc-total > div {
+    font-weight: 700;
+    font-size: var(--fontSizes-xl);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.cc-promotion-section > div {
+    color: var(--colors-green-500);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.cc-total-before-discounts > div {
+    text-decoration: line-through;
+    color: var(--colors-red-500);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    font-size: 0.875rem;
+}

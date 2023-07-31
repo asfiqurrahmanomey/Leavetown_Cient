@@ -1,0 +1,18 @@
+﻿@inherits BaseStaticGalleryPage
+@page "/offers"
+@page "/{Culture}/offers"
+
+<PageTitle>@_pageData.Title</PageTitle>
+
+<div class="offers-page">
+    <Header />
+    <div class="banner-image">
+        <RadzenImage Path="@_pageData.HeroImage?.Url" />
+    </div>
+    <div class="offers-section-container">
+        <section class="offers-section">
+            @((MarkupString)_pageData?.Content!)
+        </section>
+    </div>
+    <Footer />
+</div>

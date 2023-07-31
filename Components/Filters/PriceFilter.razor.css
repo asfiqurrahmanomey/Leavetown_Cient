@@ -1,0 +1,47 @@
+﻿.price-title {
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.price-row {
+    display: flex;
+    margin: 1rem 0;
+    justify-content: space-between;
+}
+
+    .price-row ::deep label {
+        font-weight: 600;
+    }
+
+.chart-container {
+    position: relative;
+    height: 13rem;
+    margin-top: -2rem;
+}
+
+.price-filter-container {
+    padding: 0 1rem;
+}
+
+    .price-filter-container ::deep .rz-chart {
+        height: 16rem;
+    }
+
+    .price-filter-container ::deep .rz-slider {
+        width: 95%;
+    }
+
+        .price-filter-container ::deep .rz-slider .rz-slider-range {
+            background-color: var(--colors-primary-400);
+            border: unset;
+            top: 0;
+        }
+
+        .price-filter-container ::deep .rz-slider .rz-slider-handle {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-top: 1px;
+            border-radius: 50%;
+            border: solid 2px var(--colors-primary-400);
+            background-color: var(--white);
+        }

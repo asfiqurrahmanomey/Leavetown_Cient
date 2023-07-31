@@ -1,0 +1,26 @@
+﻿@page "/payment-cancelled"
+@page "/{Culture}/payment-cancelled"
+@page "/payment-success"
+@page "/{Culture}/payment-success"
+
+
+<div class="payment-response-page">
+    <Header />
+    <div class="payment-response-container">
+        <section class="payment-response-section">
+            <Switch>
+                <Route Template="/{Culture}/payment-cancelled">
+                    <PageTitle>@ResourcesShared.StripePaymentCancelledHeading</PageTitle>
+                    <h1>@ResourcesShared.StripePaymentCancelledHeading</h1>
+                    <p class="payment-response-message">@ResourcesShared.StripePaymentCancelledMessage</p>
+                </Route>
+                <Route Template="/{Culture}/payment-success">
+                    <PageTitle>@ResourcesShared.StripePaymentSuccessfulHeading</PageTitle>
+                    <h1>@ResourcesShared.StripePaymentSuccessfulHeading</h1>
+                    <p class="payment-response-message">@ResourcesShared.StripePaymentSuccessfulMessage</p>
+                </Route>
+            </Switch>
+        </section>
+    </div>
+    <Footer />
+</div>

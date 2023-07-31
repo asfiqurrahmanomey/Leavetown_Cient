@@ -1,0 +1,27 @@
+﻿.blog-body-wrapper {
+    word-break: break-word;
+    width: 992px;
+    max-width: 100%;
+    padding: 1.5rem;
+    align-self: center;
+    color: var(--colors-text);
+}
+.details-top-blog ::deep .blog-data {
+    max-width: 992px;
+    padding: 1.5rem;
+}
+
+.blog-body-wrapper p {
+    line-height: 1.75px;
+}
+
+    .blog-body-wrapper ::deep img {
+        width: 100%;
+        height: auto;
+    }
+
+::deep .button-link .chakra-button {
+    color: inherit;
+    background: transparent;
+    border: none;
+}
